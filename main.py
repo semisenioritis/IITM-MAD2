@@ -1,6 +1,10 @@
 from flask import Flask
-from application.models import db
+from flask_security import SQLAlchemyUserDatastore, Security
+
+from application.models import db, User, Role
 from config import DevelopmentConfig
+from application.sec import datastore
+
 
 
 def create_app():
@@ -8,12 +12,14 @@ def create_app():
     app.config.from_object(DevelopmentConfig)
     db.init_app(app) # this line tells the app that we are using the flasksql alchemy database
 
+
+    # datastore = SQLAlchemyUserDatastore(db, User, Role)
+    app.security = Security(app, datastore)
     with app.app_context():
         import application.views
 
 
     return app
-
 
 app = create_app()
 
