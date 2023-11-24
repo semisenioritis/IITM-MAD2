@@ -1,3 +1,5 @@
+# 🟠🟠 Defining the database models and the complete stucture of the tables 🟠🟠
+
 from flask_sqlalchemy import SQLAlchemy
 from flask_security import UserMixin, RoleMixin
 
@@ -49,7 +51,7 @@ class Product(db.Model):
 
     product_desc=db.Column(db.String,nullable=False)
     curr_stock=db.Column(db.Integer,nullable=False)
-    in_stock=db.Column(db.Boolean,nullable=False)
+    in_stock=db.Column(db.Boolean,nullable=False, default=True)
     product_price=db.Column(db.Integer,nullable=False)
     per_what=db.Column(db.String,nullable=False)
     product_image=db.Column(db.String,nullable=False)
@@ -68,7 +70,7 @@ class Cart(db.Model):
     user_id=db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     user=db.relationship('User')
 
-    prod_count=db.Column(db.Integer,nullable=False)
+    prod_count=db.Column(db.Integer,nullable=False, default=1)
 
 class Sold(db.Model):
     __tablename__ = 'sold'

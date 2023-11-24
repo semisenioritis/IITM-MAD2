@@ -1,3 +1,10 @@
+# 🟠🟠  Prolly will contain the views and base access to the actual pages. 🟠🟠
+# 🟠🟠  The @ decorators will allow me to restrict access to certain pages and paths.  🟠🟠
+# 🟠🟠  Login happens here so remember to hash passwords and check passowrd hashes during that.  🟠🟠
+# 🟠🟠  Need to make another endpoint for logging users in here. 🟠🟠
+ 
+
+
 from flask import current_app as app, jsonify, request, render_template
 from .models import User, db
 from flask_security import login_required, roles_required, roles_accepted, current_user, auth_required
