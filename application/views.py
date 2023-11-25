@@ -5,11 +5,13 @@
  
 
 
-from flask import current_app as app, jsonify, request, render_template
+from flask import current_app as app, jsonify, request, render_template, redirect, url_for
 from .models import User, db
 from flask_security import login_required, roles_required, roles_accepted, current_user, auth_required
 from .sec import datastore
 from werkzeug.security import check_password_hash
+
+
 
 @app.get("/")
 def home():
@@ -24,11 +26,10 @@ def admin():
 
 
 
-@app.get("/activate/inst/<int:sm_id>")
-# @auth_required('token')
+@app.get("/activate/sm/<int:sm_id>")
+@auth_required('token')
 @roles_required('admin')
 def activate_storemanager(sm_id):
-    print("hiiiiii")
     store_manager = User.query.get(sm_id)
 
     if not store_manager or "storemanager" not in store_manager.roles:
