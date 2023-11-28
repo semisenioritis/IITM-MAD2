@@ -31,16 +31,21 @@ with app.app_context():
     
 
     if not datastore.find_user(email="admin@admin.com"):
-        datastore.create_user(email="admin@admin.com", password="admin", roles=['admin'], username="admin",approval_stat=True)
+        datastore.create_user(email="admin@admin.com", password="admin", roles=['admin'], username="admin")
 
+    # one store manager is active and the other is not just for testing purposes
     if not datastore.find_user(email="store@manager1.com"):
-        datastore.create_user(email="store@manager1.com", password="storemanager1", roles=['storemanager'], username="storemanager1", approval_stat=True, active=False)
+        datastore.create_user(email="store@manager1.com", password="storemanager1", roles=['storemanager'], username="storemanager1", active=True)
+
+    if not datastore.find_user(email="store@manager2.com"):
+        datastore.create_user(email="store@manager2.com", password="storemanager2", roles=['storemanager'], username="storemanager2", active=False)
+
 
     if not datastore.find_user(email="user@user1.com"):
-        datastore.create_user(email="user@user1.com", password="user1", roles=['user'], username="user1", approval_stat=False)
+        datastore.create_user(email="user@user1.com", password="user1", roles=['user'], username="user1")
     
     if not datastore.find_user(email="user@user2.com"):
-        datastore.create_user(email="user@user2.com", password="user2", roles=['user'], username="user2", approval_stat=False)
+        datastore.create_user(email="user@user2.com", password="user2", roles=['user'], username="user2")
                 
 
                                             # admin = Admin(username="admin", email="admin@admin.com", password_hash="admin")

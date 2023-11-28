@@ -1,0 +1,20 @@
+div{
+    border: 1px solid rgb(255, 255, 255);
+    color: white;
+    margin: 3px;
+    padding: 4px;
+}
+
+body{
+    background-color: black;
+}
+
+.horiz{
+    display: flex;
+    justify-content: center;
+}
+
+.griddy{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}

@@ -45,6 +45,7 @@ def activate_storemanager(sm_id):
 def user_login():
     data = request.get_json()
     email = data.get('email')
+    username = data.get('username')
     if not email:
         return jsonify({"message": "Email is required"}), 400
     
@@ -53,11 +54,49 @@ def user_login():
     if not datastore.find_user(email=email):
         return jsonify({"message": "User not found"}), 404
     
+    if not datastore.find_user(username=username):
+        return jsonify({"message": "User not found"}), 404
+       
     # if check_password_hash(user.password, data.get('password')):
         
     #     return user.get_auth_token()   
-    
+
     if user.password == data.get('password'):
-        return user.get_auth_token() 
+        return jsonify({"token": user.get_auth_token(), "username": user.username, "role": user.roles[0].name})
     else:
         return jsonify({"message": "Wrong password"}), 400       
+    
+
+@app.post('/user-register')
+def user_register():
+    data = request.get_json()
+    email = str(data.get('email'))
+    username = str(data.get('username'))
+    password = str(data.get('password'))
+    sm = bool(data.get('sm'))
+    if not email:
+        return jsonify({"message": "Email is required"}), 400
+    
+    if not username:
+        return jsonify({"message": "Username is required"}), 400
+
+    if not password:
+        return jsonify({"message": "Password is required"}), 400
+
+    if datastore.find_user(email=email):
+        return jsonify({"message": "User already exists"}), 400
+
+    if datastore.find_user(username=username):
+        return jsonify({"message": "User already exists"}), 400
+
+
+    if sm == True:
+        datastore.create_user(email=email, username=username, password=password, roles=['storemanager'], active=False)
+
+        db.session.commit()
+    else:
+        datastore.create_user(email=email, username=username, password=password, roles=['user'])
+
+        db.session.commit()
+    return jsonify({"message": "Account created successfully"}), 201
+

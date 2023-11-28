@@ -15,8 +15,8 @@ class User(db.Model, UserMixin):
     fs_uniquifier = db.Column(db.String(255), unique=True, nullable=False)
     roles = db.relationship('Role', secondary='roles_users',
                          backref=db.backref('users', lazy='dynamic'))
-    approval_stat=db.Column(db.Boolean(),nullable=False, default=False)
-    active = db.Column(db.Boolean())
+    active = db.Column(db.Boolean(),nullable=False, default=True)
+    # rem to make new sms inactive by default ie active=False
 
 class Role(db.Model, RoleMixin):
     __tablename__ = 'role'
