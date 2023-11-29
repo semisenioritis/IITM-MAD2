@@ -62,7 +62,7 @@ def user_login():
     #     return user.get_auth_token()   
 
     if user.password == data.get('password'):
-        return jsonify({"token": user.get_auth_token(), "username": user.username, "role": user.roles[0].name})
+        return jsonify({"token": user.get_auth_token(), "username": user.username, "role": user.roles[0].name, "id": user.id, "email": user.email})
     else:
         return jsonify({"message": "Wrong password"}), 400       
     

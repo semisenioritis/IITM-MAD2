@@ -98,12 +98,16 @@ export default {
                 // console.log(data);
                 localStorage.setItem("user_role", data.role);
                 localStorage.setItem("Authentication-Token", data.token);
+                localStorage.setItem("username", data.username);
+                localStorage.setItem("email", data.email);
+                localStorage.setItem("id", data.id);
                 if (data.role=="admin"){
                     this.$router.push('/adminhome');}
                 else if (data.role=="sm"){
                     this.$router.push('/smhome');}
                 else if (data.role=="user"){
-                    this.$router.push('/userhome');
+                    this.$router.push('/userhome');}
+
                 // console.log(data.role);}
                 else{
                     alert(data.message);

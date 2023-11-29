@@ -32,7 +32,9 @@ cart_fields = {
     "product_id": fields.Integer,
     "user_id": fields.Integer,
     "prod_count": fields.Integer,
-    "message": fields.String
+    "message": fields.String,
+    "product_name": fields.String,
+    "product_price": fields.Integer,
 }
 
 product_fields = {
@@ -953,7 +955,7 @@ class AllSections(Resource):
     def get(self):
         try:
             # Find the product by ID
-            sections = Section.query.all() 
+            sections = Section.query.filter_by(approval_stat=True).all() 
 
             if (not sections):            
             # if not sections:
@@ -973,13 +975,27 @@ class CartResource(Resource):
     def get(self, user_id):
         try:
             # Find the product by ID
-            cart = Cart.query.filter_by(user_id=user_id).all()
-
+            # cart = Cart.query.filter_by(user_id=user_id).all()
+            cart = (
+                Cart.query
+                .join(Product, Cart.product_id == Product.product_id)
+                .add_columns(
+                    Cart.cart_id,
+                    Cart.user_id,
+                    Cart.product_id,
+                    Cart.prod_count,
+                    Product.product_name,
+                    Product.product_price,
+                )
+                .filter(Cart.user_id == user_id)
+                .all()
+            )
             if (not cart):
                 # If the product is not found, return a 404 response
                 return {"message": f"Cart not found"}
 
 
+            
             return cart
 
         except Exception as e:
@@ -990,7 +1006,7 @@ api.add_resource(CartResource, '/cart/<int:user_id>')
 
 
 class IsThisBought(Resource):
-    @marshal_with(only_message_fields)
+
     def post(self):
         try:
 
@@ -1008,9 +1024,14 @@ class IsThisBought(Resource):
 
             if (not product_found):
                 # If the product is not found, return a 404 response
-                return {"message": False}
+                return {
+                    "message": False
+                    }
             else:
-                return {"message": True}
+                return {
+                    "message": True,
+                    "prod_count": getattr(product_found[0], 'prod_count')
+                    }
 
         except Exception as e:
             # Handle the exception and return a custom JSON error response
@@ -1023,11 +1044,12 @@ api.add_resource(IsThisBought, '/isthisbought')
 
 class SearchProductsMain(Resource):
     @marshal_with(product_fields)
-    def get(self):
+    def post(self):
 
         parser = reqparse.RequestParser()
         parser.add_argument('query', type=str)
         parser.add_argument('sections', type=str,action='split')
+
 
 
 

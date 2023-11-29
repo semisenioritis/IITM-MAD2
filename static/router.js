@@ -20,17 +20,7 @@ import CreateProduct from './components/CreateProduct.js'
 import ModifyProduct from './components/ModifyProduct.js'
 
 
-router.beforeEach((to, from, next) => {
-    if (to.path === '/login' || to.path === '/') {
-        next();
-    }
-    else if (localStorage.getItem("Authentication-Token") === null) {
-        next('/login');
-    }
-    else {
-        next();
-    }
-})
+
 
 
 
@@ -41,14 +31,14 @@ const routes = [
     { path: '/login', component: LoginUser },
     { path: '/adminhome', component: AdminHome },
     { path: '/smhome', component: SmHome },
-    { path: '/userhome', component: UserHome },
+    { path: '/userhome', component: UserHome, name: 'userhome' },
 
 
-    { path: '/product', component: ProductTemplate },
+    { path: '/product', component: ProductTemplate, name: 'product' },
     { path: '/cart', component: CartPage },
-    { path: '/section', component: SectionPage },
+    { path: '/section', component: SectionPage, name: 'section' },
 
-    { path: '/search', component: SearchResults },
+    { path: '/search', component: SearchResults, name: 'searches' },
 
     { path: '/createsection', component: CreateSection },
     { path: '/createproduct', component: CreateProduct },

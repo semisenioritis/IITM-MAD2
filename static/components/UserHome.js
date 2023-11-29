@@ -10,37 +10,21 @@ export default {
             <div>
 
                 <div>
-                    new additions
+                    New Additions!
                 </div>
-                <div class="horiz">
+
+                <div class="griddy">
                     
-                <div>
+ 
+                
+                <router-link  v-for="(item, index) in fresh_prods" :key="index" :to="{ name: 'product', params: { itemId: item.product_id }}">
                     <div>
-                        image1
+                        {{item.product_name}}
                     </div>
                     <div>
-                        prod1
+                        {{item.product_price}}
                     </div>
-                </div>
-
-
-                <div>
-                    <div>
-                        image2
-                    </div>
-                    <div>
-                        prod2
-                    </div>
-                </div>
-
-                <div>
-                    <div>
-                        image3
-                    </div>
-                    <div>
-                        prod3
-                    </div>
-                </div>
+                </router-link>
 
 
                 </div>
@@ -52,37 +36,21 @@ export default {
             <div>
 
                 <div>
-                    prev bought
+                    Products you have previously bought!
                 </div>
-                <div class="horiz">
+                <div class="griddy">
                     
-                <div>
+                <router-link  v-for="(item, index) in prev_prods" :key="index" :to="{ name: 'product', params: { itemId: item.product_id }}">
                     <div>
-                        image1
+                        {{item.product_name}}
                     </div>
                     <div>
-                        prod1
+                        {{item.product_price}}
                     </div>
-                </div>
+                </router-link>
 
 
-                <div>
-                    <div>
-                        image2
-                    </div>
-                    <div>
-                        prod2
-                    </div>
-                </div>
 
-                <div>
-                    <div>
-                        image3
-                    </div>
-                    <div>
-                        prod3
-                    </div>
-                </div>
 
 
                 </div>
@@ -95,4 +63,63 @@ export default {
     </div>
 
     `,
+    data() {
+        return {
+            fresh_prods: [],
+            prev_prods: [],
+        }
+    },
+    created() {
+
+        this.getfresh();
+        this.getprev();
+    },
+
+    methods: {
+        async getfresh() {
+            const fresh_url = '/api/freshprods'
+            const res = await fetch(fresh_url, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+                });
+                if(res.ok){
+                    const dataa=await res.json();
+                    console.log(dataa);
+                    if (dataa.message == null){
+                        console.log("thse are the fresh products")
+                        this.fresh_prods = dataa;
+                        console.log(dataa)
+                    }
+                    else{
+                        console.log("no fresh prods or error")
+                    }
+                
+                }
+        },
+
+        async getprev() {
+            const past_url = '/api/freshprods'
+            const res = await fetch(past_url, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+                });
+                if(res.ok){
+                    const dataa=await res.json();
+                    console.log(dataa);
+                    if (dataa.message == null){
+                        console.log("thse are the bought products")
+                        this.prev_prods = dataa;
+                        console.log(dataa)
+                    }
+                    else{
+                        console.log("no bought prods or error")
+                    }
+                
+                }
+        },        
+    }
 }
