@@ -99,7 +99,8 @@ export default {
             const res=await fetch(verification_url, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authentication-Token": localStorage.getItem("Authentication-Token"),
                 }
                 });
                 if(res.ok){
@@ -119,7 +120,8 @@ export default {
             const res=await fetch(cart_url, {
                 method: "GET",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authentication-Token": localStorage.getItem("Authentication-Token"),
                 }
                 });
                 if(res.ok){
@@ -138,7 +140,8 @@ export default {
             const res=await fetch(cart_plus_url, {
                 method: "PUT",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authentication-Token": localStorage.getItem("Authentication-Token"),
                 }
                 });
                 if(res.ok){
@@ -159,7 +162,8 @@ export default {
             const res=await fetch(cart_min_url, {
                 method: "PUT",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authentication-Token": localStorage.getItem("Authentication-Token"),
                 }
                 });
                 if(res.ok){
@@ -182,7 +186,8 @@ export default {
             const res=await fetch(cart_delete_url, {
                 method: "DELETE",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authentication-Token": localStorage.getItem("Authentication-Token"),
                 }
                 });
                 if(res.ok){
@@ -209,7 +214,8 @@ export default {
             const res=await fetch(checkout_url, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authentication-Token": localStorage.getItem("Authentication-Token"),
                 }
                 });
                 if(res.ok){

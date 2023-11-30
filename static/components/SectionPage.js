@@ -2,7 +2,7 @@ export default {
     template: `
 
 
-<div>
+<div :key="has_changed" >
 
     <div>
         {{secname}}
@@ -38,7 +38,7 @@ export default {
             token: localStorage.getItem("Authentication-Token"),
             prodsData: null,
             secname: this.$route.query.sectionName,
-            
+            has_changed:true,
 
             
         }
@@ -57,7 +57,8 @@ export default {
       mounted() {
         // const routeParamss = this.$route.query;
         console.log('SectionPage mounted');
-        fetchSectionDetails(routeParams.sectionId)
+
+        this.fetchSectionDetails(this.$route.query.sectionId)
       },
       methods: {
         async fetchSectionDetails(sectionId) {
@@ -68,8 +69,9 @@ export default {
             const res=await fetch(section_url, {
               method: "GET",
               headers: {
-                  "Content-Type": "application/json"
-              }
+                "Content-Type": "application/json",
+                "Authentication-Token": localStorage.getItem("Authentication-Token"),
+            },
               });
           if(res.ok){
               const dataaa=await res.json();
@@ -101,5 +103,11 @@ export default {
 
 
 
+      },
+
+      watch:{
+          $route(to, from){
+              this.has_changed = !this.has_changed;
+          }
       }
 }

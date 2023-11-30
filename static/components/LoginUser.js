@@ -89,7 +89,8 @@ export default {
             const res=await fetch("/user-login", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authentication-Token": localStorage.getItem("Authentication-Token"),
                 },
                 body: JSON.stringify(this.cred)
             });
@@ -119,7 +120,8 @@ export default {
             const res=await fetch("/user-register", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authentication-Token": localStorage.getItem("Authentication-Token"),
                 },
                 body: JSON.stringify(this.cred)
             });

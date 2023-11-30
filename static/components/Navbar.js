@@ -131,8 +131,9 @@ export default {
           const res=await fetch("/api/search", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
-            },
+              "Content-Type": "application/json",
+              "Authentication-Token": localStorage.getItem("Authentication-Token"),
+          },
             body: JSON.stringify(search_obj)
         });
         if(res.ok){
@@ -161,8 +162,9 @@ export default {
       const res=await fetch("api/allsections", {
         method: "GET",
         headers: {
-            "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+          "Authentication-Token": localStorage.getItem("Authentication-Token"),
+      },
     });
     if(res.ok){
         const data=await res.json();

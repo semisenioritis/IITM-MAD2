@@ -65,7 +65,8 @@ only_message_fields = {
     "message": fields.String
 }
 class NewSectionSM(Resource):
-
+    @auth_required('token')
+    @roles_required('storemanager')
     @marshal_with(section_fields)
     def post(self):
         try:
@@ -95,7 +96,8 @@ api.add_resource(NewSectionSM, '/newsection_sm')
 
 
 class NewSectionA(Resource):
-   
+    @auth_required('token')   
+    @roles_required('admin')    
     @marshal_with(section_fields)
     def post(self):
         try:
@@ -128,7 +130,8 @@ api.add_resource(NewSectionA, '/newsection_a')
 
 
 class NewProd(Resource):
-
+    @auth_required('token')
+    @roles_required('storemanager')    
     @marshal_with(product_fields)
 
     def post(self):
@@ -225,7 +228,8 @@ api.add_resource(SectionResource, '/section/<int:section_id>')
 
 
 class UpdateProduct(Resource):
-
+    @auth_required('token')
+    @roles_required('storemanager')    
     @marshal_with(product_fields)
     def put(self, product_id):
         try:
@@ -299,7 +303,8 @@ api.add_resource(UpdateProduct, '/product_update/<int:product_id>')
 
 
 class UpdateSectionA(Resource):
-
+    @auth_required('token')
+    @roles_required('admin')    
     @marshal_with(section_fields)
     def put(self, section_id):
         try:
@@ -352,51 +357,53 @@ api.add_resource(UpdateSectionA, '/section_update_a/<int:section_id>')
 
 
 class ValidateCreateSectionA(Resource): 
-    
-        @marshal_with(section_fields)
-        def put(self, section_id):
-            try:
-                # Find the existing product by ID
-                existing_section = Section.query.get(section_id)
-    
+    @auth_required('token') 
+    @roles_required('admin')    
+    @marshal_with(section_fields)
+    def put(self, section_id):
+        try:
+            # Find the existing product by ID
+            existing_section = Section.query.get(section_id)
 
-                if (not existing_section):
-                # if not existing_section:
-                    # If the product is not found, return a 404 response
-                    return {"message": f"Section not found"}
-    
-                # Parse and update the attributes
-                parser = reqparse.RequestParser()
-    
-    
-                args = parser.parse_args()
-                args['approval_stat'] = True
-    
-                # Update the existing product attributes
-                for key, value in args.items():
-                    if value is not None:
-                        setattr(existing_section, key, value)
-    
-                # Commit the changes to the database
-                db.session.commit()
-    
-                # Retrieve the updated product
-                updated_section = Section.query.get(section_id)
-    
 
-                if (not updated_section):
-                    # If the product is not found, return a 404 response
-                    return {"message": f"Unable to update Section"}
-                
-                return updated_section
-    
-            except Exception as e:
-                # Handle the exception and return a custom JSON error response
-                return {"message": f"Some error occured"}
+            if (not existing_section):
+            # if not existing_section:
+                # If the product is not found, return a 404 response
+                return {"message": f"Section not found"}
+
+            # Parse and update the attributes
+            parser = reqparse.RequestParser()
+
+
+            args = parser.parse_args()
+            args['approval_stat'] = True
+
+            # Update the existing product attributes
+            for key, value in args.items():
+                if value is not None:
+                    setattr(existing_section, key, value)
+
+            # Commit the changes to the database
+            db.session.commit()
+
+            # Retrieve the updated product
+            updated_section = Section.query.get(section_id)
+
+
+            if (not updated_section):
+                # If the product is not found, return a 404 response
+                return {"message": f"Unable to update Section"}
+            
+            return updated_section
+
+        except Exception as e:
+            # Handle the exception and return a custom JSON error response
+            return {"message": f"Some error occured"}
 api.add_resource(ValidateCreateSectionA, '/validate_section_update_a/<int:section_id>')
 
 class UpdateSectionSM(Resource):
-
+    @auth_required('token')
+    @roles_required('storemanager')    
     @marshal_with(section_fields)
     def put(self, section_id):
         try:
@@ -449,6 +456,8 @@ api.add_resource(UpdateSectionSM, '/section_update_sm/<int:section_id>')
 
 class DeleteProduct(Resource):
     # @marshal_with(product_fields)
+    @auth_required('token')    
+    @roles_required('storemanager')    
     @marshal_with(only_message_fields)    
     # @marshal_with(cart_fields)
     def delete(self, product_id):
@@ -483,7 +492,9 @@ api.add_resource(DeleteProduct, '/deleteprod/<int:product_id>')
 
 
 class DeleteSection(Resource):
-    @marshal_with(only_message_fields)    
+    @marshal_with(only_message_fields)
+    @auth_required('token')        
+    @roles_required('admin')    
     # @marshal_with(section_fields)
     def delete(self, section_id):
         try:
@@ -523,7 +534,8 @@ api.add_resource(DeleteSection, '/deletesec/<int:section_id>')
 
 
 class ValidateUpdateSectionA(Resource):
-
+    @auth_required('token')
+    @roles_required('admin')
     @marshal_with(section_fields)
     def put(self, section_id):
         try:
@@ -568,9 +580,9 @@ api.add_resource(ValidateUpdateSectionA, '/validate_section_update_a/<int:sectio
 
 
 
-
-
 class NewCartResource(Resource):
+    @auth_required('token')
+    @roles_required('user')        
     @marshal_with(only_message_fields)    
     # @marshal_with(cart_fields)
     def post(self):
@@ -613,6 +625,8 @@ class NewCartResource(Resource):
 api.add_resource(NewCartResource, '/addtocart')
 
 class CartAddResource(Resource):
+    @auth_required('token') 
+    @roles_required('user')   
     @marshal_with(cart_fields)
     def put(self,cart_id):
         try:
@@ -674,6 +688,8 @@ class CartAddResource(Resource):
 api.add_resource(CartAddResource, '/addonecart/<int:cart_id>')
 
 class CartRemResource(Resource):
+    @auth_required('token') 
+    @roles_required('user')  
     @marshal_with(cart_fields)
     def put(self,cart_id):
         try:
@@ -741,6 +757,8 @@ api.add_resource(CartRemResource, '/remonecart/<int:cart_id>')
 
 
 class DeleteCart(Resource):
+    @auth_required('token') 
+    @roles_required('user')   
     # @marshal_with(cart_fields)
     @marshal_with(only_message_fields)    
     def delete(self, cart_id):
@@ -820,6 +838,8 @@ api.add_resource(CartVerificationResource, '/cartverification/<int:user_id>')
 
 
 class CartPurchaser(Resource):
+    @auth_required('token') 
+    @roles_required('user')   
     @marshal_with(only_message_fields)    
     # @marshal_with(cart_fields)
     def post(self, user_id):
@@ -909,6 +929,8 @@ api.add_resource(FreshProds, '/freshprods')
 
 
 class UserPastProds(Resource):
+    @auth_required('token')   
+    @roles_required('user') 
     @marshal_with(product_fields)
     def get(self,user_id):
         try:
@@ -994,6 +1016,8 @@ api.add_resource(AllProds, '/allproducts')
 
 
 class CartResource(Resource):
+    @auth_required('token')   
+    @roles_required('user') 
     @marshal_with(cart_fields)
     def get(self, user_id):
         try:
@@ -1029,7 +1053,8 @@ api.add_resource(CartResource, '/cart/<int:user_id>')
 
 
 class IsThisBought(Resource):
-
+    @auth_required('token')   
+    @roles_required('user') 
     def post(self):
         try:
 
@@ -1115,7 +1140,10 @@ class SearchProductsMain(Resource):
 
 api.add_resource(SearchProductsMain, '/search')
 
+
 class NotApprovedSections(Resource):
+    @auth_required('token')   
+    @roles_required('admin') 
     @marshal_with(section_fields)
     def get(self):
         try:
@@ -1140,6 +1168,8 @@ class NotApprovedSections(Resource):
 api.add_resource(NotApprovedSections, '/notapprovedsections')                   
 
 class NotApprovedSM(Resource):
+    @auth_required('token')    
+    @roles_required('admin') 
     @marshal_with(user_fields)
     def get(self):
         try:
@@ -1162,6 +1192,8 @@ class NotApprovedSM(Resource):
 api.add_resource(NotApprovedSM, '/notapprovedsm')
 
 class DelSM(Resource):
+    @auth_required('token') 
+    @roles_required('admin') 
     # @marshal_with(user_fields)
     @marshal_with(only_message_fields)
     def get(self,user_id):

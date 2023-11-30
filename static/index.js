@@ -28,7 +28,7 @@ new Vue({
     <div>
 
     <NavBar />
-    <NavBar2 />
+    <NavBar2  :key="has_changed" />
     <router-view />
     </div>
 
@@ -38,5 +38,13 @@ new Vue({
         NavBar,
         NavBar2,
     },
+    data: {
+        has_changed:true,
+    },
+    watch:{
+        $route(to, from){
+            this.has_changed = !this.has_changed;
+        }
+    }
 
 })

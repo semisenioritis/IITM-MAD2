@@ -81,8 +81,9 @@ export default {
             const res = await fetch(fresh_url, {
                 method: "GET",
                 headers: {
-                    "Content-Type": "application/json"
-                }
+                    "Content-Type": "application/json",
+                    "Authentication-Token": localStorage.getItem("Authentication-Token"),
+                },
                 });
                 if(res.ok){
                     const dataa=await res.json();
@@ -104,8 +105,9 @@ export default {
             const res = await fetch(past_url, {
                 method: "GET",
                 headers: {
-                    "Content-Type": "application/json"
-                }
+                    "Content-Type": "application/json",
+                    "Authentication-Token": localStorage.getItem("Authentication-Token"),
+                },
                 });
                 if(res.ok){
                     const dataa=await res.json();

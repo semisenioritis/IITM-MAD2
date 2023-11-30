@@ -145,7 +145,8 @@ export default {
             const res=await fetch(section_url, {
                 method: "GET",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authentication-Token": localStorage.getItem("Authentication-Token"),
                 }
                 });
                 if(res.ok){
@@ -166,7 +167,8 @@ export default {
             const res=await fetch(sm_url, {
                 method: "GET",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authentication-Token": localStorage.getItem("Authentication-Token"),
                 }
                 });
                 if(res.ok){
@@ -188,7 +190,8 @@ export default {
             const res=await fetch(section_url, {
                 method: "GET",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authentication-Token": localStorage.getItem("Authentication-Token"),
                 }
                 });
                 if(res.ok){

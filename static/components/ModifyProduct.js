@@ -121,8 +121,8 @@ export default {
             const res = await fetch(prod_url,{
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': this.token,
+                    "Content-Type": "application/json",
+                    "Authentication-Token": localStorage.getItem("Authentication-Token"),
                 },
 
             })
@@ -164,8 +164,8 @@ export default {
             const res = await fetch(prod_url,{
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': this.token,
+                    "Content-Type": "application/json",
+                    "Authentication-Token": localStorage.getItem("Authentication-Token"),
                 },
                 body: JSON.stringify(data_to_send)
             })

@@ -74,8 +74,9 @@ export default {
             const res=await fetch(section_url, {
                 method: "GET",
                 headers: {
-                    "Content-Type": "application/json"
-                }
+                    "Content-Type": "application/json",
+                    "Authentication-Token": localStorage.getItem("Authentication-Token"),
+                },
                 });
                 if(res.ok){
                     const dataa=await res.json();
@@ -99,7 +100,7 @@ export default {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authentication-Token": this.token,
+                    "Authentication-Token": localStorage.getItem("Authentication-Token"),
                 },
                 body: JSON.stringify({
                     "section_name": this.sec_name,
@@ -126,7 +127,7 @@ export default {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authentication-Token": this.token,
+                    "Authentication-Token": localStorage.getItem("Authentication-Token"),
                 },
                 });
                 if(res.ok){

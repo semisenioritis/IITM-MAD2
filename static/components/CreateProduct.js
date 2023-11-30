@@ -135,8 +135,8 @@ export default {
             const res= await fetch(prod_url, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': this.token,
+                    "Content-Type": "application/json",
+                    "Authentication-Token": localStorage.getItem("Authentication-Token"),
                 },
                 body: JSON.stringify(prod_data),
             })

@@ -23,15 +23,16 @@ export default {
     }
   },
   mounted() {
-    this.fetch_sections();
+    this.fetch_sections();  
   },
   methods:{
     async fetch_sections(){
       const res=await fetch("api/allsections", {
         method: "GET",
         headers: {
-            "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+          "Authentication-Token": localStorage.getItem("Authentication-Token"),
+      },
     });
     if(res.ok){
         const data=await res.json();

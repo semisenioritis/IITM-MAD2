@@ -66,7 +66,7 @@ export default {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authentication-Token": this.token,
+                    "Authentication-Token": localStorage.getItem("Authentication-Token"),
                 },
                 body: JSON.stringify({
                     "section_name": this.sec_name,

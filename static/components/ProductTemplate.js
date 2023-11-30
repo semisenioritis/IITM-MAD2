@@ -155,9 +155,10 @@ export default {
         const prod_url = 'api/product/' + itemId
           const res=await fetch(prod_url, {
             method: "GET",
-            headers: { 
-                "Content-Type": "application/json"
-            }
+            headers: {
+                "Content-Type": "application/json",
+                "Authentication-Token": localStorage.getItem("Authentication-Token"),
+            },
             });
         if(res.ok){
             const data=await res.json();
@@ -184,7 +185,8 @@ export default {
                 const res=await fetch(cart_url, {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Authentication-Token": localStorage.getItem("Authentication-Token"),
                     },
                     body: JSON.stringify(data_to_send)
                     });
@@ -225,7 +227,8 @@ export default {
             const res=await fetch(cart_add_url, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authentication-Token": localStorage.getItem("Authentication-Token"),
                 },
                 body: JSON.stringify(send_to_cart)
                 });
