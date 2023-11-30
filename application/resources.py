@@ -52,6 +52,14 @@ product_fields = {
     "creation_date": fields.String,
     "message": fields.String
 }
+user_fields = {
+    "id": fields.Integer,
+    "email": fields.String,
+    "username": fields.String,
+    "roles": fields.String,
+    "active": fields.Boolean,
+    "message": fields.String
+}
 
 only_message_fields = {
     "message": fields.String
@@ -119,10 +127,6 @@ api.add_resource(NewSectionA, '/newsection_a')
 
 
 
-
-
-
-
 class NewProd(Resource):
 
     @marshal_with(product_fields)
@@ -166,7 +170,7 @@ class NewProd(Resource):
 
         except Exception as e:
             # Handle the exception and return a custom JSON error response
-            return {"message": f"Some error occured"}
+            return {"message": e}
             
 
 
@@ -969,6 +973,25 @@ class AllSections(Resource):
 
 api.add_resource(AllSections, '/allsections')
 
+class AllProds(Resource):
+    @marshal_with(product_fields)
+    def get(self):
+        try:
+            # Find the product by ID
+            prods = Product.query.all() 
+
+            if (not prods):            
+            # if not sections:
+                # If the product is not found, return a 404 response
+                return {"message": f"No prods found"}
+
+            return prods
+        except Exception as e:
+            # Handle the exception and return a custom JSON error response
+            return {"message": f"Some error occured"}
+
+api.add_resource(AllProds, '/allproducts')
+
 
 class CartResource(Resource):
     @marshal_with(cart_fields)
@@ -1092,3 +1115,70 @@ class SearchProductsMain(Resource):
 
 api.add_resource(SearchProductsMain, '/search')
 
+class NotApprovedSections(Resource):
+    @marshal_with(section_fields)
+    def get(self):
+        try:
+
+
+
+            not_approved_sections = Section.query.filter_by(approval_stat=False).all()
+
+
+            if (not not_approved_sections):
+                # If the product is not found, return a 404 response
+                return {"message": f"All sections approved"}
+
+
+            
+            return not_approved_sections
+
+        except Exception as e:
+            # Handle the exception and return a custom JSON error response
+            return {"message": f"Some error occured"}   
+
+api.add_resource(NotApprovedSections, '/notapprovedsections')                   
+
+class NotApprovedSM(Resource):
+    @marshal_with(user_fields)
+    def get(self):
+        try:
+
+
+            not_approved_sm = User.query.filter_by(active=False).all()
+
+
+            if (not not_approved_sm):
+                # If the product is not found, return a 404 response
+                return {"message": f"All SM approved"}
+
+
+            
+            return not_approved_sm
+
+        except Exception as e:
+            # Handle the exception and return a custom JSON error response
+            return {"message": f"Some error occured"}
+api.add_resource(NotApprovedSM, '/notapprovedsm')
+
+class DelSM(Resource):
+    # @marshal_with(user_fields)
+    @marshal_with(only_message_fields)
+    def get(self,user_id):
+        try:
+            delete_sm=User.query.get(user_id)
+
+            if (not delete_sm):
+            # if delete_rows.count() == 0:
+                # If no rows were deleted, the user might not have items in the cart
+                return {"message": "No users found in the db"}
+
+            db.session.delete(delete_sm)
+            db.session.commit()
+            return {"message": "SM deleted successfully"}
+                        
+        except Exception as e:
+            # Handle the exception and return a custom JSON error response
+            return {"message": f"Some error occured"}
+
+api.add_resource(DelSM, '/delsm/<int:user_id>')

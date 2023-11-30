@@ -132,7 +132,7 @@ export default {
       },
       created() {
         // Access the route parameters
-        const routeParams = this.$route.params;
+        const routeParams = this.$route.query;
     
         // Check if the required parameters are present
         if (routeParams.itemId) {
@@ -217,7 +217,7 @@ export default {
 
             const cart_add_url = 'api/addtocart'
             const send_to_cart = {
-                "product_id": this.$route.params.itemId,
+                "product_id": this.$route.query.itemId,
                 "user_id": localStorage.getItem("id"),
             }
             console.log(send_to_cart)

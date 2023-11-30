@@ -17,7 +17,7 @@ export default {
                     
  
                 
-                <router-link  v-for="(item, index) in fresh_prods" :key="index" :to="{ name: 'product', params: { itemId: item.product_id }}">
+                <router-link  v-for="(item, index) in fresh_prods" :key="index" :to="{ name: 'product', query: { itemId: item.product_id }}">
                     <div>
                         {{item.product_name}}
                     </div>
@@ -40,7 +40,7 @@ export default {
                 </div>
                 <div class="griddy">
                     
-                <router-link  v-for="(item, index) in prev_prods" :key="index" :to="{ name: 'product', params: { itemId: item.product_id }}">
+                <router-link  v-for="(item, index) in prev_prods" :key="index" :to="{ name: 'product', query: { itemId: item.product_id }}">
                     <div>
                         {{item.product_name}}
                     </div>
@@ -100,7 +100,7 @@ export default {
         },
 
         async getprev() {
-            const past_url = '/api/freshprods'
+            const past_url = '/api/userpastprods'+localStorage.getItem("id")
             const res = await fetch(past_url, {
                 method: "GET",
                 headers: {

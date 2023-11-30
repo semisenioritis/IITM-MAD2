@@ -6,11 +6,12 @@ export default {
 
     <div>
         {{secname}}
+
     </div>
 
     <div class="griddy">
 
-        <router-link v-for="(item, index) in prodsData" :key="index" :to="{ name: 'product', params: { itemId: item.product_id }}">
+        <router-link v-for="(item, index) in prodsData" :key="index" :to="{ name: 'product', query: { itemId: item.product_id }}">
         <!-- Assuming each item has a unique 'id' property -->
         <div>
             <!-- You can customize the content of the link -->
@@ -36,14 +37,15 @@ export default {
             role: localStorage.getItem("user_role"),
             token: localStorage.getItem("Authentication-Token"),
             prodsData: null,
-            secname: this.$route.params.sectionName,
+            secname: this.$route.query.sectionName,
+            
 
             
         }
     },
     created() {
 
-        const routeParams = this.$route.params;
+        const routeParams = this.$route.query;
    
         if (routeParams.sectionId) {
 
@@ -51,6 +53,11 @@ export default {
         } else {
           console.error('Missing sectionId parameter');
         }
+      },
+      mounted() {
+        // const routeParamss = this.$route.query;
+        console.log('SectionPage mounted');
+        fetchSectionDetails(routeParams.sectionId)
       },
       methods: {
         async fetchSectionDetails(sectionId) {

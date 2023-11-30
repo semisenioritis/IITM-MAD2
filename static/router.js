@@ -19,6 +19,8 @@ import ModifySection from './components/ModifySection.js'
 import CreateProduct from './components/CreateProduct.js'
 import ModifyProduct from './components/ModifyProduct.js'
 
+import CreateSectionSm from './components/CreateSectionSm.js'
+import ModifySectionSm from './components/ModifySectionSm.js'
 
 
 
@@ -29,9 +31,9 @@ import ModifyProduct from './components/ModifyProduct.js'
 const routes = [
     { path: '/', component: Home },
     { path: '/login', component: LoginUser },
-    { path: '/adminhome', component: AdminHome },
-    { path: '/smhome', component: SmHome },
-    { path: '/userhome', component: UserHome, name: 'userhome' },
+    { path: '/adminhome', component: AdminHome, name: 'adminhome', meta: { requiresAuth: true, roles: ['admin'] },},
+    { path: '/smhome', component: SmHome, name: 'smhome', meta: { requiresAuth: true, roles: ['storemanager'] },},
+    { path: '/userhome', component: UserHome, name: 'userhome', meta: { requiresAuth: true, roles: ['user'] },},
 
 
     { path: '/product', component: ProductTemplate, name: 'product' },
@@ -40,15 +42,47 @@ const routes = [
 
     { path: '/search', component: SearchResults, name: 'searches' },
 
-    { path: '/createsection', component: CreateSection },
+    { path: '/createsection', component: CreateSection, name : 'createsection',meta: { requiresAuth: true, roles: ['admin'] }, },
     { path: '/createproduct', component: CreateProduct },
+    { path: '/createsectionsm', component: CreateSectionSm, name : 'createsectionsm', meta: { requiresAuth: true, roles: ['storemanager'] },},
+    { path: '/modifysectionsm', component: ModifySectionSm, name: 'modifysectionsm', meta: { requiresAuth: true, roles: ['storemanager'] },},
 
-    { path: '/viewsection', component: ViewSection },
-    { path: '/modifysection', component: ModifySection },
-    { path: '/modifyproduct', component: ModifyProduct },
+
+    { path: '/viewsection', component: ViewSection, name: 'viewsection', meta: { requiresAuth: true, roles: ['storemanager'] },},
+    { path: '/modifysection', component: ModifySection, name: 'modifysection', meta: { requiresAuth: true, roles: ['admin'] },},
+    { path: '/modifyproduct', component: ModifyProduct, name: 'modifyproduct' , meta: { requiresAuth: true, roles: ['storemanager'] },},
 ]
   
 
-export default new VueRouter({
+const router = new VueRouter({
     routes,
-  })
+});
+
+
+router.beforeEach((to, from, next) => {
+    const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+    const isAuthenticated = localStorage.getItem('user_role') === 'admin' || localStorage.getItem('user_role') === 'storemanager' || localStorage.getItem('user_role') === 'user';
+    const userRolesString = localStorage.getItem('user_role');
+    console.log(userRolesString)
+    const userRoles = userRolesString ? [userRolesString] : [];
+    const requiredRoles = to.meta.roles;
+  
+    if (requiresAuth && !isAuthenticated) {
+      // Redirect to login if authentication is required and user is not authenticated
+      next('/login');
+    } else if (requiresAuth && requiredRoles && !userRoles.some(role => requiredRoles.includes(role))) {
+      // Redirect to unauthorized page if user doesn't have required roles
+      next('/');
+    } else {
+      // Proceed to the requested route
+      next();
+    }
+  });
+
+
+
+
+
+
+
+export default router;

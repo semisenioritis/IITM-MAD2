@@ -8,7 +8,7 @@ export default {
     <div>
 
 
-    <router-link v-for="(item, index) in searchData" :key="index" :to="{ name: 'product', params: { itemId: item.product_id }}">
+    <router-link v-for="(item, index) in searchData" :key="index" :to="{ name: 'product', query: { itemId: item.product_id }}">
       <!-- Assuming each item has a unique 'id' property -->
       <div>
         <!-- You can customize the content of the link -->

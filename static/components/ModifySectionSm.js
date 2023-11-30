@@ -63,7 +63,7 @@ export default {
 
     },
     created() {
-        console.log("AdminHome created")
+
         this.fetch_this_sec(this.sec_id)
     },
     methods: {
@@ -93,7 +93,7 @@ export default {
         },
         async submitForm(){
             console.log("submitForm")
-            const section_url = "/api/section_update_a/" + this.sec_id
+            const section_url = "/api/section_update_sm/" + this.sec_id
             
             const res=await fetch(section_url, {
                 method: "PUT",
@@ -112,7 +112,7 @@ export default {
                     if (dataa.message == null){
                         console.log("updated section")
                         // this.section_desc = dataa.section_desc
-                        this.$router.push({name: 'adminhome'})
+                        this.$router.push({name: 'smhome'})
                     }
                     else{
                         console.log("some error ig lol keep debugging noob")

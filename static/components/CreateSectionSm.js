@@ -2,7 +2,7 @@ export default {
     template: `
 
 
-    <div>
+<div>
 
     <div>
         Create Section
@@ -43,8 +43,8 @@ export default {
 </div>
 
     `,
-    data(){
-        return{
+    data() {
+        return {
             role: localStorage.getItem("user_role"),
             token: localStorage.getItem("Authentication-Token"),
             sec_name: "",
@@ -60,7 +60,7 @@ export default {
     methods: {
         async submitForm(){
             console.log("submitForm")
-            const section_url = "/api/newsection_a"
+            const section_url = "/api/newsection_sm"
             
             const res=await fetch(section_url, {
                 method: "POST",
@@ -79,7 +79,7 @@ export default {
                     if (dataa.message == null){
                         console.log("created section")
                         // this.section_desc = dataa.section_desc
-                        this.$router.push({ name: 'adminhome' })
+                        this.$router.push({ name: 'smhome' })
                     }
                     else{
                         console.log("some error ig lol keep debugging noob")
@@ -88,5 +88,5 @@ export default {
                 }
         },
 
-    }    
+    }
 }
