@@ -39,7 +39,7 @@ export default {
             </div>    
 
             <div>
-                Export as CSV
+                <button @click="download_csv">Export as CSV</button>
             </div>
 
         </div>    
@@ -91,5 +91,22 @@ export default {
                 }
 
         },
+        async download_csv(){
+            console.log("download_csv")
+            const response = await fetch("/downloadcsv/" + this.sec_id)  
+            const data = await response.json();
+                if(response.ok){
+                    const taskId = data['task_id']; 
+                    const intv = setInterval(async () => {
+                    const  csv_res = await fetch("/getcsv/" + taskId);
+                    if (csv_res.ok){
+                        clearInterval(intv);
+                        window.location.href = "/getcsv/" + taskId;
+                        }
+
+                    })
+                
+                }
+        }
     }
 }

@@ -1,121 +1,71 @@
 export default {
     template: `
+    <div class="container">
+    <div class="alert alert-success">Welcome Admin!</div>
 
-    <div>
-        <div> Welcome Admin!</div>
-        <div class="horiz"> 
-            <div>
-                <div>
-                Manage Sections
-                </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Manage Sections</div>
                 
-                <div>
-                    <div>
-                        Create Section                       
-                    </div>
-                    <div>   
-                        
-                        <router-link to="/createsection">
-                        <button>+</button>
-                        </router-link>                   
-                    </div>                
-                </div>
-                
-                <div>
-                    <div>
-                       Modify Section:                      
-                    </div>
-                    <div>   
-
-                        <router-link v-for="(item, index) in sections" :key="index" :to="{ name: 'modifysection', query: { sectionId: item.section_id, sectionName: item.section_name}}">
-                            <div>
-                                {{item.section_name}}
-                            </div>
-                        </router-link>
-                    </div>                
-                </div>
-
-            </div>
-
-
-
-
-
-
-            <div>
-                <div>
-                Approve Requests:
-                </div>
-                
-                <div>
-                    <div>
-                        Store Manager Applications                       
-                    </div>
-                    <div>   
-
-                    <div v-for="(item, index) in sm_applications" :key="index" >
-                        <div class="horiz">
-                            <div>
-                                {{item.username}}
-                            </div>
-                            <div>
-                                <button @click="approvesm(item.id)">
-                                    Approve
-                                </button>
-                            </div>
-                            <div>
-                                <button @click="disapprovesm(item.id)">
-                                    Disapprove
-                                </button>
-                            </div>                            
+                <div class="card-body">
+                    <div class="card">
+                        <div class="card-header">Create Section</div>
+                        <div class="card-body">
+                            <router-link to="/createsection">
+                                <button class="btn btn-primary">+</button>
+                            </router-link>
                         </div>
-
                     </div>
 
-
-
-
-
-                    </div>                
-                </div>
-                
-                <div>
-                    <div>
-                       Section Approvals:                       
-                    </div>
-                    <div>   
-
-                        <div v-for="(item, index) in section_applications" :key="index" >
-                        <div class="horiz">
-                            <div>
-                                {{item.section_name}}
-                            </div>
-                            <div>
-                                <button @click="approvesec(item.section_id)">
-                                    Approve
-                                </button>
-                            </div>
-                     
+                    <div class="card">
+                        <div class="card-header">Modify Section</div>
+                        <div class="card-body">
+                            <router-link v-for="(item, index) in sections" :key="index" :to="{ name: 'modifysection', query: { sectionId: item.section_id, sectionName: item.section_name}}">
+                                <div class="card">
+                                    {{item.section_name}}
+                                </div>
+                            </router-link>
                         </div>
-
-                    </div>                        
-
-
-
-
-
-
-
-
-                        
-                    </div>                
+                    </div>
                 </div>
-
             </div>
+        </div>
 
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Approve Requests</div>
+                
+                <div class="card-body">
+                    <div class="card">
+                        <div class="card-header">Store Manager Applications</div>
+                        <div class="card-body">
+                            <div v-for="(item, index) in sm_applications" :key="index" class="d-flex justify-content-between">
+                                <div>{{item.username}}</div>
+                                <div>
+                                    <button @click="approvesm(item.id)" class="btn btn-success">Approve</button>
+                                    <button @click="disapprovesm(item.id)" class="btn btn-danger">Disapprove</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="card">
+                        <div class="card-header">Section Approvals</div>
+                        <div class="card-body">
+                            <div v-for="(item, index) in section_applications" :key="index" class="d-flex justify-content-between">
+                                <div>{{item.section_name}}</div>
+                                <div>
+                                    <button @click="approvesec(item.section_id)" class="btn btn-success">Approve</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+</div>
 
     `,
     data() {
@@ -173,11 +123,17 @@ export default {
                 });
                 if(res.ok){
                     const dataa=await res.json();
+                    console.log("this is from fetch_sm_applications")
                     console.log(dataa);
+                    console.log("this is from fetch_sm_applications")
                     if (dataa.message == null){
                         console.log("found sm applications")
                         this.sm_applications = dataa
                         
+                    }
+                    else if (dataa.message == "All SM approved"){
+                        console.log("All SM approved")
+                        this.sm_applications = []
                     }
                     else{
                         console.log("some error ig lol keep debugging noob")
@@ -200,6 +156,10 @@ export default {
                     if (dataa.message == null){
                         console.log("found section applications")
                         this.section_applications = dataa
+                    }
+                    else if (dataa.message == "All sections approved"){
+                        console.log("All Sections approved")
+                        this.section_applications = []
                     }
                     else{
                         console.log("some error ig lol keep debugging noob")

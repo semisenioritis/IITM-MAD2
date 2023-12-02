@@ -54,7 +54,7 @@ export default {
 
 
       <li>
-        <label for="beforeDate">Before Date:</label>
+        <label for="beforeDate">Manufactured Before:</label>
         <input type="date" id="beforeDate" v-model="beforeDate" />
       </li>
     </ul>
@@ -90,21 +90,26 @@ export default {
           responseList: [],
           sections: [], 
           secntions_done: [],
-          maxPrice: null,
-          minPrice: null,
+          maxPrice: 100000000000,
+          minPrice: 0,
           beforeDate: null,         
           query: '',       
           
         }
     },
     methods: {
+        async this_user(){
+          // this.username = localStorage.getItem("username") ?? "";
+          this.username = localStorage.getItem("username") ;
+          this.token = localStorage.getItem("Authentication-Token") ;
+        },
         logout() {
             localStorage.removeItem("Authentication-Token");
             localStorage.removeItem("user_role");
             localStorage.removeItem("username");
             localStorage.removeItem("email");
             localStorage.removeItem("id");
-
+            this.this_user()
             this.$router.push('/login');
         },
         gotocart(){
@@ -121,9 +126,9 @@ export default {
 
           const search_obj = {
             'query': this.query,
-            // maxPrice: this.maxPrice,
-            // minPrice: this.minPrice,
-            // beforeDate: this.beforeDate,
+            'maxPrice': this.maxPrice,
+            'minPrice': this.minPrice,
+            'beforeDate': String(this.beforeDate),
             'sections': this.sections_done,
           };
           console.log(search_obj);
@@ -151,30 +156,35 @@ export default {
         }  
         else{
             const data=await res.json();
-            alert(data.message);
+            // alert(data.message);
           }      
 
         },  
+        async on_start(){
+
+          const res=await fetch("api/allsections", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "Authentication-Token": localStorage.getItem("Authentication-Token"),
+          },
+        });
+        if(res.ok){
+            const data=await res.json();
+            console.log(data);
+            this.responseList=data;
+            console.log(this.responseList);
+            this.sections = new Array(this.responseList.length).fill(false);        
+    
+            
+        }
+        }
     },
   
 
-    async mounted() {
-      const res=await fetch("api/allsections", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Authentication-Token": localStorage.getItem("Authentication-Token"),
-      },
-    });
-    if(res.ok){
-        const data=await res.json();
-        console.log(data);
-        this.responseList=data;
-        console.log(this.responseList);
-        this.sections = new Array(this.responseList.length).fill(false);        
-
-        
-    }
+    mounted() {
+      this.on_start();
+      this.this_user();
     },
 
 

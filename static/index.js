@@ -27,8 +27,8 @@ new Vue({
 
     <div>
 
-    <NavBar />
-    <NavBar2  :key="has_changed" />
+    <NavBar  :key="has_changed" />
+    <NavBar2  />
     <router-view />
     </div>
 

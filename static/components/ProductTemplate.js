@@ -3,11 +3,7 @@ export default {
 
 
 <div class="horiz">
-    <div> 
-        <div>
-            {{product_image}}
-        </div> 
-    </div>
+
     <div>
 
         <div>
@@ -235,9 +231,10 @@ export default {
                 if(res.ok){
                     const dataa=await res.json();
                     console.log(dataa);
-                    if (dataa.message == true ){
+                    if (dataa.message == "Added to Cart successfully" ){
                         console.log("added")
                         console.log(dataa.prod_count)
+                        this.prod_count = "Added"
                     }
                     else{
                         console.log("not added")

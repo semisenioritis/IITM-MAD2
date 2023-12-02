@@ -5,14 +5,17 @@
  
 
 
-from flask import current_app as app, jsonify, request, render_template, redirect, url_for
+from flask import current_app as app, jsonify, request, render_template, redirect, url_for, send_file
 from .models import User, db
 from flask_security import login_required, roles_required, roles_accepted, current_user, auth_required
 from .sec import datastore
 from werkzeug.security import check_password_hash
+from .tasks import create_resource_csv
+from celery.result import AsyncResult
 
 
 
+@auth_required('token')
 @app.get("/")
 def home():
     return render_template("index.html")
@@ -60,11 +63,13 @@ def user_login():
     # if check_password_hash(user.password, data.get('password')):
         
     #     return user.get_auth_token()   
-
-    if user.password == data.get('password'):
-        return jsonify({"token": user.get_auth_token(), "username": user.username, "role": user.roles[0].name, "id": user.id, "email": user.email})
-    else:
-        return jsonify({"message": "Wrong password"}), 400       
+    if user.active:
+        if user.password == data.get('password') :
+            return jsonify({"token": user.get_auth_token(), "username": user.username, "role": user.roles[0].name, "id": user.id, "email": user.email})
+        else:
+            return jsonify({"message": "Wrong password"}), 400     
+    else:  
+        return jsonify({"message": "User not activated"}), 404
     
 
 @app.post('/user-register')
@@ -99,4 +104,22 @@ def user_register():
 
         db.session.commit()
     return jsonify({"message": "Account created successfully"}), 201
+
+
+
+@app.get("/downloadcsv/<int:sec_id>")
+def downloadcsv(sec_id):
+    t = create_resource_csv.delay(sec_id)
+    return jsonify({"task_id": t.id})
+
+
+@app.get('/getcsv/<task_id>')
+def get_csv(task_id):
+    res = AsyncResult(task_id)
+    if res.ready():
+        filename = res.result
+        return send_file(filename, as_attachment=True)
+    else:
+        return jsonify({"message": "Task Pending"}), 404
+    
 

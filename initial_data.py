@@ -71,8 +71,8 @@ with app.app_context():
     db.session.add(section2)
     db.session.add(section3)
 
-    prod1 = Product(product_name="prod1", section_id=1, product_desc="prod1", in_stock=True,curr_stock=20, product_price=100, per_what="kg", product_image="prod1", mfg_date="1/1/2021", exp_date="1/1/2022", creation_date="12/11/2023")
-    prod2 = Product(product_name="prod2", section_id=2, product_desc="prod2", in_stock=True,curr_stock=40, product_price=100, per_what="ltr", product_image="prod2", mfg_date="1/1/2021", exp_date="1/1/2022", creation_date="12/11/2023")
+    prod1 = Product(product_name="prod1", section_id=1, product_desc="prod1", in_stock=True,curr_stock=20, product_price=100, per_what="kg", product_image="prod1", mfg_date="2021-1-1", exp_date="2021-1-1", creation_date="2023-11-12T:00:00:00.000Z")
+    prod2 = Product(product_name="prod2", section_id=2, product_desc="prod2", in_stock=True,curr_stock=40, product_price=100, per_what="ltr", product_image="prod2", mfg_date="2021-1-1", exp_date="2021-1-1", creation_date="2023-11-12T:00:00:00.000Z")
     db.session.add(prod1)
     db.session.add(prod2)
 

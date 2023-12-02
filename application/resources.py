@@ -11,7 +11,8 @@ from .models import Section, Product, db, User, Role, RolesUsers, Cart, Sold
 from .sec import datastore
 import time
 from fuzzywuzzy import fuzz
-from sqlalchemy import or_, func
+from sqlalchemy import or_, func, and_, true
+from datetime import datetime
 import json
 import re
 
@@ -1097,6 +1098,9 @@ class SearchProductsMain(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument('query', type=str)
         parser.add_argument('sections', type=str,action='split')
+        parser.add_argument('maxPrice', type=int)
+        parser.add_argument('minPrice', type=int)
+        parser.add_argument('beforeDate', type=str)
 
 
 
@@ -1104,18 +1108,55 @@ class SearchProductsMain(Resource):
         args = parser.parse_args()        
         search_query = args.get('query')
         sections = args.get('sections')
-        sections = [int(section) for section in args.get('sections', [])]
+
+        minPrice = args.get('minPrice')
+        maxPrice = args.get('maxPrice')
+        beforeDate = args.get('beforeDate')
+        if minPrice:
+            minPrice = int(minPrice)
+        if maxPrice:
+            maxPrice = int(maxPrice)
+        if beforeDate != "null":
+            beforeDate_date = datetime.strptime(beforeDate, '%Y-%m-%d').date()
+            condition4 = datetime.strptime(Product.mfg_date), '%Y-%m-%d' <= beforeDate_date
+        else:
+            condition4 = true()
+
+        
+
+        sections = [int(section) for section in args.get('sections', []) or []]
 
         sections_list = sections
         # sections_list = list(map(int, sections.split(','))) if sections else []
         
-        # Get the foreign key values from the related table
-        section_ids = [section.section_id for section in Section.query.filter(Section.section_id.in_(sections_list)).all()]
+
+        if sections_list == []:
+            condition1 = true()
+        else:
+            # Get the foreign key values from the related table
+            section_ids = [section.section_id for section in Section.query.filter(Section.section_id.in_(sections_list)).all()]
+            condition1 = Product.section_id.in_(section_ids)
 
 
-        # Filter the table based on foreign key values
-        filtered_rows = Product.query.filter(Product.section_id.in_(section_ids)).all()
+        if minPrice !=0 :
+            condition2 = Product.product_price >= minPrice  
+        else:
+            condition2 = true()
 
+        if maxPrice !=100000000000 :
+            condition3 = Product.product_price <= maxPrice
+        else:
+            condition3 = true()
+        
+        # if beforeDate !="null":
+        #     condition4 = datetime.strptime(Product.mfg_date), '%Y-%m-%d' < beforeDate_date
+        # else:
+        #     condition4 = true()
+
+        
+        
+        
+        filtered_rows = Product.query.filter(and_(condition1, condition2, condition3, condition4)).all()
 
 
         # Perform exact substring matching

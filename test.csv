@@ -1,0 +1,2 @@
+product_id,product_name,section_id,product_desc,curr_stock,in_stock,product_price,per_what,mfg_date,exp_date,creation_date
+1,prod1,1,prod1,20,True,100,kg,1/1/2021,1/1/2022,12/11/2023
