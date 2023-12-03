@@ -2,14 +2,14 @@ export default {
   template: `
 
 
-<nav>
-      <router-link
+    <nav>
+      <span
         v-for="(section, index) in responseList"
         :key="index"
         :to="{ name: 'section', query: { sectionId: section.section_id, sectionName: section.section_name} }"
         @click="send_to_sec(section.section_id, section.section_name)">
         {{ section.section_name }}
-      </router-link>
+      </span>
     </nav>
   
 
@@ -48,7 +48,11 @@ export default {
     send_to_sec(section_id, section_name){
       console.log("send_to_sec")
       console.log(section_id)
-      this.$router.push({ name: 'section', query: { sectionId: section_id, sectionName: section_name} })
+      // console.log("sikeeee boiiiiiiiiiiiiiii 1")
+      // this.$router.push({ name: 'home' });
+      // console.log("sikeeee boiiiiiiiiiiiiiii 2")
+      this.$router.push({ name: 'section_proxy', query: { sectionId: section_id, sectionName: section_name} })
+      // console.log("sikeeee boiiiiiiiiiiiiiii 3")
     }
   }
 }

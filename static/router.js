@@ -10,6 +10,7 @@ import UserHome from './components/UserHome.js'
 import ProductTemplate from './components/ProductTemplate.js'
 import CartPage from './components/CartPage.js'
 import SectionPage from './components/SectionPage.js'
+import SectionPageProxy from './components/SectionPageProxy.js'
 
 import SearchResults from './components/SearchResults.js'
 
@@ -29,7 +30,7 @@ import ModifySectionSm from './components/ModifySectionSm.js'
 
 
 const routes = [
-    { path: '/', component: Home },
+    { path: '/', component: Home, name: 'home' },
     { path: '/login', component: LoginUser },
     { path: '/adminhome', component: AdminHome, name: 'adminhome', meta: { requiresAuth: true, roles: ['admin'] },},
     { path: '/smhome', component: SmHome, name: 'smhome', meta: { requiresAuth: true, roles: ['storemanager'] },},
@@ -39,6 +40,8 @@ const routes = [
     { path: '/product', component: ProductTemplate, name: 'product' },
     { path: '/cart', component: CartPage },
     { path: '/section', component: SectionPage, name: 'section' },
+    { path: '/section_proxy', component: SectionPageProxy, name: 'section_proxy' },
+
 
     { path: '/search', component: SearchResults, name: 'searches' },
 

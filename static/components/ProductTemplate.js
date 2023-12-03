@@ -16,12 +16,12 @@ export default {
             </div>
 
 
-            <div>
+            <div >
 
-                        <div>
+                        <div v-if="role ==='user'">
                             in cart:
                         </div>
-                        <div>
+                        <div v-if="role ==='user'">
                             {{prod_count}}
                         </div>
 
@@ -91,7 +91,7 @@ export default {
             <div>
           
 
-<button @click.prevent="cartadd">Add to Cart</button>
+<button @click.prevent="cartadd" v-if="role ==='user'" >Add to Cart</button>
 
 
 
@@ -110,7 +110,7 @@ export default {
     `,
     data() {
         return {
-          
+            role: localStorage.getItem("user_role"),
             // Initialize with default values or an empty object
             product_name:"",
             product_description:"",
