@@ -1,35 +1,45 @@
 export default {
     template: `
 
-    <div>
-        <div> Welcome StoreManager!</div>
+    <div class="container mt-5 card bg-dark text-light">
+        <div><h2 style="text-align:center"> Welcome Store Manager!</h2></div>
         <div class="horiz"> 
-            <div>
-                <div>
-                Manage Products
+            <div class="card-body centerer ">
+                <div class="col-md-8">
+                <h4>Manage Products</h4>
                 </div>
                 
-                <div>
+                <div class="col-md-8">
                     <div>
-                        Create Product                       
+                        <h5>Create Product</h5>
                     </div>
                     <div>   
                     <router-link to="/createproduct">
-                        <button>+</button>
+                        
+                        <button class="btn btn-primary d-block mx-auto" style="width: 150px;">+</button>
+
                         </router-link>                                           
                     </div>                
                 </div>
                 
-                <div>
+                <div class="col-md-8">
                     <div>
-                       Modify Product                       
+                       <h5>Modify Product</h5>                       
                     </div>
                     <div>   
 
                         <router-link v-for="(item, index) in products" :key="index" :to="{ name: 'modifyproduct', query: { itemId: item.product_id}}">
-                            <div>
-                                {{item.product_name}}
+
+
+
+                        <div class="card bg-dark mb-3 whitener border_white">
+                            <div class="card-body">
+                                <p class="card-text">{{item.product_name}}</p>
                             </div>
+                        </div>
+
+
+
                         </router-link>                        
                     </div>                
                 </div>
@@ -41,32 +51,43 @@ export default {
 
 
 
-            <div>
-                <div>
-                Manage Sections
+            <div class="card-body centerer">
+                <div class="col-md-8">
+                <h4>Manage Sections</h4>
                 </div>
                 
-                <div>
-                    <div>
-                        Create Section                       
+                <div class="col-md-8">
+                    <div >
+                        <h5>Create Section </h5>                      
                     </div>
                     <div>   
                     <router-link to="/createsectionsm">
-                        <button>+</button>
+                        
+                        <button class="btn btn-primary d-block mx-auto" style="width: 150px;">+</button>
+
                     </router-link>                     
                     </div>                
                 </div>
                 
-                <div>
+                <div class="col-md-8">
                     <div>
-                       View Section:                   
+                       <h5>View Section: </h5>
                     </div>
                     <div>   
 
                         <router-link v-for="(item, index) in sections" :key="index" :to="{ name: 'viewsection', query: { sectionId: item.section_id, sectionName: item.section_name}}">
-                            <div>
-                                {{item.section_name}}
+
+
+
+                            <div class="card bg-dark mb-3 whitener border_white">
+                                <div class="card-body">
+                                    <p class="card-text">{{item.section_name}}</p>
+                                </div>
                             </div>
+
+
+
+
                         </router-link>
                         
                         

@@ -1,94 +1,82 @@
 export default {
     template: `
+    <div class="container mt-5">
+    <div class="card bg-dark text-white ">
+        <div class="card-header ">
+            Create Product
+        </div>
+        <div class="card-body centerer  ">
 
-<div>
-    <div>
-        Create Product
-    </div>
-    <div >
+            <div class="form-group row limit_row_width">
+                <label for="title" class="col-sm-4 col-form-label">Product Name:</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="title" v-model="prod_name" />
+                </div>
+            </div>
 
+            <div class="form-group row limit_row_width">
+                <label for="sec_id" class="col-sm-4 col-form-label">Product Section Id:</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control" id="sec_id" v-model="prod_sec_id" />
+                </div>
+            </div>
 
-<div class="horiz">
-    <div>
-        Product Name:
-    </div>
-    <div>
-        <input type="text" name="title" id="title" v-model="prod_name" />
-    </div>
-</div>
-<div class="horiz">
-    <div>
-        Product Section Id:
-    </div>
-    <div>
-        <input type="int" name="sec_id" id="sec_id" v-model="prod_sec_id" />
-    </div>
-</div>
-<div class="horiz">
-    <div>
-        Product Description:
-    </div>
-    <div>
-        <input type="text" name="desc" id="desc"  v-model="prod_desc" />
-    </div>
-</div>
-<div class="horiz">
-    <div>
-        Current Stock:
-    </div>
-    <div>
-        <input type="int" name="stock" id="stock" v-model="prod_stock" />
-    </div>
-</div>
-<div class="horiz">
-    <div>
-        In Stock?
-    </div>
-    <div>
-        <input type="checkbox" name="in_stock" id="in_stock" v-model="prod_in_stock" />
-    </div>
-</div>
-<div class="horiz">
-    <div>
-        Product Price:
-    </div>
-    <div>
-        <input type="int" name="price" id="price" v-model="prod_price" />
-    </div>
-</div>
-<div class="horiz">
-    <div>
-        Per Unit:
-    </div>
-    <div>
-        <input type="text" name="unit" id="unit" v-model="prod_unit" />
-    </div>
-</div>
-<div class="horiz">
-    <div>
-        Manufacturing Date:
-    </div>
-    <div>
-        <input type="date" name="mfg_date" id="mfg_date" v-model="prod_mfg_date" />
-    </div>
-</div>
-<div class="horiz">
-    <div>
-        Expiry Date:
-    </div>
-    <div>
-        <input type="date" name="exp_date" id="exp_date" v-model="prod_exp_date" />
-    </div>
-</div>
-<div class="horiz">
-    <div>
-        <button @click="createProduct">Create Product</button>
-    </div>
+            <div class="form-group row limit_row_width">
+                <label for="desc" class="col-sm-4 col-form-label">Product Description:</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="desc" v-model="prod_desc" />
+                </div>
+            </div>
 
-</div>
+            <div class="form-group row limit_row_width">
+                <label for="stock" class="col-sm-4 col-form-label">Current Stock:</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control" id="stock" v-model="prod_stock" />
+                </div>
+            </div>
+
+            <div class="form-group row limit_row_width">
+                <label for="in_stock" class="col-sm-4 col-form-label">In Stock?</label>
+                <div class="col-sm-8">
+                    <input type="checkbox" class="form-check-input" id="in_stock" v-model="prod_in_stock" />
+                </div>
+            </div>
+
+            <div class="form-group row limit_row_width">
+                <label for="price" class="col-sm-4 col-form-label">Product Price:</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control" id="price" v-model="prod_price" />
+                </div>
+            </div>
+
+            <div class="form-group row limit_row_width">
+                <label for="unit" class="col-sm-4 col-form-label">Per Unit:</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="unit" v-model="prod_unit" />
+                </div>
+            </div>
+
+            <div class="form-group row limit_row_width">
+                <label for="mfg_date" class="col-sm-4 col-form-label">Manufacturing Date:</label>
+                <div class="col-sm-8">
+                    <input type="date" class="form-control" id="mfg_date" v-model="prod_mfg_date" />
+                </div>
+            </div>
+
+            <div class="form-group row limit_row_width">
+                <label for="exp_date" class="col-sm-4 col-form-label">Expiry Date:</label>
+                <div class="col-sm-8">
+                    <input type="date" class="form-control" id="exp_date" v-model="prod_exp_date" />
+                </div>
+            </div>
+
+            <div class="form-group row limit_row_width">
+                <div class="col-sm-12">
+                    <button class="btn btn-primary" @click="createProduct">Create Product</button>
+                </div>
+            </div>
 
         </div>
-
     </div>
 </div>
 

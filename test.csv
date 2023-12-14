@@ -1,2 +1,4 @@
 product_id,product_name,section_id,product_desc,curr_stock,in_stock,product_price,per_what,mfg_date,exp_date,creation_date
-1,prod1,1,prod1,20,True,100,kg,1/1/2021,1/1/2022,12/11/2023
+1,prod1,1,prod1,14,True,100,kg,1/1/2021,1/1/2022,12/11/2023
+3,sdsa,1,sdsadsads,12,True,11,gk,2023-12-29,2023-12-08,2023-12-02T12:41:33.936Z
+4,at pune,1,i am currently at pune right now,3,True,200,kg,2023-12-01,2023-12-30,2023-12-14T14:30:50.449Z

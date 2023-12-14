@@ -1,68 +1,42 @@
 export default {
     template: `
+    <div class="container mt-5">
+    <div class="alert alert-success">Your Cart</div>
 
-<div>
-    <div>
-        Your cart:
-    </div>
-
-
-    <div>
-
-        <div class="horiz" v-for="(item, index) in cart_items" :key="index"> 
-            <div>
-                <button @click="deleteItem(index, item.cart_id)">🗑</button>
-            </div>
-            <div>
-                {{item.product_name }} _______________________________________________________________________________
-            </div>
-            <div class="horiz">
+    <div class="card bg-dark text-white">
+        <div class="card-body">
+            <div v-for="(item, index) in cart_items" :key="index" class="d-flex justify-content-between align-items-center mb-3 bottom_sep">
                 <div>
-                    No.
-                    {{item.prod_count}}
+                    <button class="btn btn-danger" @click="deleteItem(index, item.cart_id)">🗑</button>
                 </div>
                 <div>
-                    ₹ {{item.product_price * item.prod_count}} /-
+                    <span>{{ item.product_name }}</span>
                 </div>
-                <div>
-                    <div>
-                        
-                        <button @click="incrementCount(index, item.cart_id)">+</button>
+                <div class="d-flex align-items-center">
+                    <div class="mr-3">
+                        No. {{ item.prod_count }}
                     </div>
-
-                    <div>
-                        
-                        <button @click="decrementCount(index, item.cart_id)">-</button>
-                    </div>                        
+                    <div class="mr-3">
+                        ₹ {{ item.product_price * item.prod_count }} /-
+                    </div>
+                    <div class="d-flex">
+                        <button class="btn btn-primary mr-2" @click="incrementCount(index, item.cart_id)">+</button>
+                        <button class="btn btn-primary" @click="decrementCount(index, item.cart_id)">-</button>
+                    </div>
                 </div>
             </div>
-        </div>        
-
-
-
-
-
-
-
-
-    </div>
-
-
-    <div class="horiz"> 
-
-        <div>
-            Checkout
-            <button @click="checkout_button()">🛒</button>
-        </div>    
-
-        <div>
-            Total: {{total_price}}
         </div>
     </div>
 
+    <div class="d-flex justify-content-between mt-3">
+        <div>
+            <button class="btn btn-success" @click="checkout_button()">🛒 Checkout</button>
+        </div>
+        <div>
+            <strong>Total:</strong> ₹ {{ total_price }}
+        </div>
+    </div>
 </div>
-
-
 
     `,
     data() {

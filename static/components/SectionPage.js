@@ -1,34 +1,29 @@
 export default {
     template: `
 
-
-<div :key="has_changed" >
-
-    <div>
-        {{secname}}
-
-    </div>
-
-    <div class="griddy">
-
-        <router-link v-for="(item, index) in prodsData" :key="index" :to="{ name: 'product', query: { itemId: item.product_id }}">
-        <!-- Assuming each item has a unique 'id' property -->
-        <div>
-            <!-- You can customize the content of the link -->
-            <div>{{ item.product_name }}</div>
-            <div>{{ item.product_desc }}</div>
-        </div>
+    <div :key="has_changed" class="container mt-5">
+    <div class="card bg-dark text-light p-3 mb-3 ">
+      <h2 class="text-light">{{ secname }}</h2>
+      <div class="row griddy">
+        <router-link
+          v-for="(item, index) in prodsData"
+          :key="index"
+          :to="{ name: 'product', query: { itemId: item.product_id }}"
+          class="col-md-12 text-light text-decoration-none "
+        >
+          <!-- Assuming each item has a unique 'id' property -->
+          <div class="card bg-dark mb-3 border border-white">
+            <div class="card-body ">
+              <!-- You can customize the content of the link -->
+              <h5 class="card-title text-light">{{ item.product_name }}</h5>
+              <p class="card-text text-light smallify ">{{ item.product_desc }}</p>
+            </div>
+          </div>
         </router-link>
-
-
-
-
-
-
-
+      </div>
     </div>
-
-</div>
+  </div>
+  
 
 
     `,

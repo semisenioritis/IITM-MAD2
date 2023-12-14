@@ -1,8 +1,8 @@
 export default {
     template: `
 
-    <div>
-        <div> Home
+    <div class="container mt-5 card bg-dark text-light">
+        <div> <h2 style="text-align:center">Home</h2>
 
         </div>
         <div>
@@ -10,7 +10,9 @@ export default {
             <div>
 
                 <div>
-                    New Additions!
+                    <h5>
+                        New Additions!
+                    </h5>
                 </div>
 
                 <div class="griddy">
@@ -18,12 +20,15 @@ export default {
  
                 
                 <router-link  v-for="(item, index) in fresh_prods" :key="index" :to="{ name: 'product', query: { itemId: item.product_id }}">
-                    <div>
-                        {{item.product_name}}
+                <div class="card bg-dark mb-3 whitener border_white">
+                    <div class="card-body">
+                        <p class="card-text">{{item.product_name}}</p>
                     </div>
                     <div>
-                        {{item.product_price}}
+                        Rs. {{item.product_price}} /-
                     </div>
+                </div>
+
                 </router-link>
 
 
@@ -36,17 +41,25 @@ export default {
             <div>
 
                 <div>
-                    Products you have previously bought!
+                    <h5>
+                        Products you have previously bought!
+                    </h5>
                 </div>
                 <div class="griddy">
                     
                 <router-link  v-for="(item, index) in prev_prods" :key="index" :to="{ name: 'product', query: { itemId: item.product_id }}">
-                    <div>
-                        {{item.product_name}}
+                    
+                    <div class="card bg-dark mb-3 whitener border_white">
+                        <div class="card-body">
+                            <p class="card-text">{{item.product_name}}</p>
+                        </div>
+                        <div>
+                            Rs. {{item.product_price}} /-
+                        </div>
                     </div>
-                    <div>
-                        {{item.product_price}}
-                    </div>
+                
+
+
                 </router-link>
 
 

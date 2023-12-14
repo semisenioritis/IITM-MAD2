@@ -1,76 +1,55 @@
 export default {
     template: `
-
-<div>
-
-
-    <div class="horiz">
-        <div>
-            <label for="username">
-                Username
-            </label>
+    <div class="container mt-5">
+    <div class="card bg-dark text-white">
+        <div class="card-header text-center">
+            User Authentication
         </div>
+        <div class="card-body centerer">
 
-        <div>
+            <div class="form-group row limit_row_width">
+                <label for="username" class="col-sm-2 col-form-label">Username</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Username" v-model="cred.username">
+                </div>
+            </div>
 
-            <input type="text" id="username" name="username" placeholder="username" v-model="cred.username">
+            <div class="form-group row limit_row_width">
+                <label for="email" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="name@email.com" v-model="cred.email">
+                </div>
+            </div>
+
+            <div class="form-group row limit_row_width">
+                <label for="password" class="col-sm-2 col-form-label">Password</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" id="password" name="password" v-model="cred.password">
+                </div>
+            </div>
+
+            <div class="form-group sharp_rower limit_row_width">
+                <div class="col-sm-2">
+                    <label for="sm" class="form-check-label">Want to be a Store Manager?</label>
+                </div>
+                <div class="col-sm-10">
+                    <input type="checkbox" class="form-check-input" id="sm" name="sm" v-model="cred.sm">
+                </div>
+            </div>
+
+            <div class="form-group sharp_rower limit_row_width">
+                <div class="col-sm-6">
+                    <button class="btn btn-primary" @click="login">Login</button>
+                </div>
+                <div class="col-sm-6" style="display: flex;flex-direction: row-reverse;">
+                    <button class="btn btn-success" @click="signup">Register</button>
+                </div>
+            </div>
+
         </div>
-
     </div>
-    <div class="horiz">
-        <div>
-            <label for="email">
-                Email
-            </label>
-        </div>
-
-        <div>
-
-            <input type="email" id="email" name="email" placeholder="name@email.com" v-model="cred.email">
-        </div>
-
-    </div>
-    
-    <div class="horiz">
-        <div>
-            <label for="password">
-                Password
-            </label>
-        </div>
-
-        <div>
-            <input type="password" id="password" name="password" v-model="cred.password">
-        </div>
-
-    </div>
-
-    <div class="horiz">
-        <div>
-            <label for="password">
-                Want to be a Store Manager?
-            </label>
-        </div>
-
-        <div>
-            <input type="checkbox" id="sm" name="sm" v-model="cred.sm">
-        </div>
-
-    </div>
-    
-    
-    <div class="horiz">
-        <div>
-            <button @click="login">Login</button>
-        </div>
-
-        <div>
-        <button @click="signup">Register</button>
-        </div>
-
-    </div>
-
 </div>
-    
+
     
     `,
     data() {

@@ -1,53 +1,42 @@
 export default {
     template: `
 
-    <div>
-
-        <div>
-            Modify Section:
+    <div class="container mt-5">
+    <div class="card bg-dark text-white">
+        <div class="card-header text-center">
+            Modify Section
         </div>
         <form @submit.prevent="submitForm">
-        <div>
-            
-            <div class="horiz"> 
-            
-                <div>
-                    Title:
+            <div class="card-body centerer">
+
+                <div class="form-group row limit_row_width">
+                    <label for="title" class="col-sm-2 col-form-label">Title:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="title" name="title" v-model="sec_name" />
+                    </div>
                 </div>
-                <div>
-                    <input type="text" name="title" id="title" v-model="sec_name" />
+
+                <div class="form-group row limit_row_width">
+                    <label for="desc" class="col-sm-2 col-form-label">Description:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="desc" name="desc" v-model="section_desc" />
+                    </div>
                 </div>
+
+                <div class="form-group row limit_row_width">
+                    <div class="col-sm-12 ">
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                </div>
+
             </div>
-            <div class="horiz"> 
-                <div>
-                    Description:
-                </div>
-                <div>
-                <input type="text" name="desc" id="desc"  v-model="section_desc" />
-                </div>
-            </div>
-            
-
-
-        </div>
-
-
-        
-
-            <div>
-                <button type="submit">Save</button>
-            </div>  
-
         </form>
 
-            <div>
-                
-                <button @click="del_sec">Delete Section</button>
-            </div>
-
-           
-
+        <div class="card-footer horiz">
+            <button class="btn btn-danger" @click="del_sec">Delete Section</button>
+        </div>
     </div>
+</div>
 
     `,
     data() {

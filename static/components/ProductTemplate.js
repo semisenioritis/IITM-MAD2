@@ -1,111 +1,51 @@
 export default {
     template: `
 
-
-<div class="horiz">
-
-    <div>
-
-        <div>
-            {{product_name}}
-        </div> 
-        <div class="horiz">
-
-            <div>
-                {{product_description}}
+    <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card bg-dark text-light">
+          <div class="card-body">
+            <h2>{{ product_name }}</h2>
+            <div class="mb-3">
+                <strong>More:</strong> {{ product_description }}
             </div>
+  
 
+  
+            <div class="row pls_just_center_me">
+              <div class="col-md-4">
+                <div class="mb-2">
+                  <strong>Price:</strong> {{ product_price }}
+                </div>
+                <div class="mb-2">
+                  <strong>Curr Stock:</strong> {{ curr_stock }}
+                </div>
+                <div class="mb-2">
+                  <strong>Per:</strong> {{ per_what }}
+                </div>
+                <div class="mb-2">
+                  <strong>Mfg Date:</strong><br> {{ mfg_date }}
+                </div>
+                <div class="mb-2">
+                  <strong>Exp Date:</strong><br> {{ exp_date }}
+                </div>
+              </div>
+  
+              <div class="col-md-4 centerer">
+                <button @click.prevent="cartadd" v-if="role === 'user'" class="btn btn-success">Add to Cart</button>
 
-            <div >
-
-                        <div v-if="role ==='user'">
-                            in cart:
-                        </div>
-                        <div v-if="role ==='user'">
-                            {{prod_count}}
-                        </div>
-
+                <div v-if="role === 'user'" class="mb-3">
+                    <strong>In Cart:</strong> <span class="added">{{ prod_count }}</span>
+                </div>
+              </div>
             </div>
-
-
+          </div>
         </div>
-
-
-
-
-
-
-
-        <div class="horiz">
-            <div>
-                <div class="horiz">
-                    <div>
-                        price:
-                    </div>
-                    <div>
-                        {{product_price}}
-                    </div> 
-                </div>
-
-                <div class="horiz">
-                    <div>
-                        curr stock:
-                    </div>
-                    <div>
-                        {{curr_stock}}
-                    </div> 
-                </div>
-                
-                <div class="horiz">
-                    <div>
-                        per:
-                    </div>
-                    <div>
-                        {{per_what}}
-                    </div> 
-                </div>
-                
-                <div class="horiz">
-                    <div>
-                        mfg date:
-                    </div>
-                    <div>
-                        {{mfg_date}}
-                    </div> 
-                </div>
-                
-                <div class="horiz">
-                    <div>
-                        exp date:
-                    </div>
-                    <div>
-                        {{exp_date}}
-                    </div> 
-                </div>                
-
-
-
-
-            </div>
-    
-            <div>
-          
-
-<button @click.prevent="cartadd" v-if="role ==='user'" >Add to Cart</button>
-
-
-
-            </div>
-
-
-        </div>
-
-
-    </div> 
-
-</div>
-
-
+      </div>
+    </div>
+  </div>
+  
 
     `,
     data() {

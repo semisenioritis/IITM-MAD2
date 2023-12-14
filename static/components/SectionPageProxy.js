@@ -3,7 +3,6 @@ export default {
 
     <div>Section Proxy</div>
     
-    
     `,
 created() {
     console.log('Proxy component created')

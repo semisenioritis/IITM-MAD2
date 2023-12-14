@@ -1,9 +1,11 @@
 export default {
     template:   `
 
-    <nav class="navbar navbar-expand-lg bg-dark">
-      <div class="container-fluid">
-        <router-link to="/" class="navbar-brand" href="#">Groceries King
+    <nav class="navbar navbar-expand-lg bg-dark text-white">
+      <div class="container-fluid text-white">
+        <router-link to="/" class="navbar-brand whitener" href="#">
+
+        <img src="/static/image.png" alt="Groceries King Logo" class="img-fluid ml-3" style="height: 110px;" />
         </router-link>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -16,27 +18,27 @@ export default {
                   <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"  v-model="query">
 
 
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle"  role="button" data-bs-toggle="dropdown" aria-expanded="true">
+            <li class="nav-item dropdown whitener">
+              <a class="nav-link dropdown-toggle whitener"  role="button" data-bs-toggle="dropdown" aria-expanded="true">
                 Section
               </a>
 
 
 
-  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-    <div v-for="(item, index) in responseList" :key="index" class="form-check" style="color:black">
-      <input class="form-check-input" type="checkbox" :id="'checkbox_' + index" v-model="sections[index]" />
-      <label class="form-check-label" :for="'checkbox_' + index">{{ item.section_name }}</label>
-    </div>
-  </ul>
+              <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
+                <div v-for="(item, index) in responseList" :key="index" class="form-check" style="color:black">
+                  <input class="form-check-input" type="checkbox" :id="'checkbox_' + index" v-model="sections[index]" />
+                  <label class="form-check-label" :for="'checkbox_' + index">{{ item.section_name }}</label>
+                </div>
+              </ul>
 
 
 
             </li>
 
 
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="filtersDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <li class="nav-item dropdown whitener">
+    <a class="nav-link dropdown-toggle whitener" href="#" id="filtersDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Filters
     </a>
     <ul class="dropdown-menu" aria-labelledby="filtersDropdown">

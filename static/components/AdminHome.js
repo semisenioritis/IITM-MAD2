@@ -3,26 +3,27 @@ export default {
     <div class="container">
     <div class="alert alert-success">Welcome Admin!</div>
 
-    <div class="row">
+    <div class="horiz">
         <div class="col-md-6">
-            <div class="card">
+            <div class="card bg-dark text-white">
                 <div class="card-header">Manage Sections</div>
                 
                 <div class="card-body">
-                    <div class="card">
+                    <div class="card bg-dark text-white">
                         <div class="card-header">Create Section</div>
                         <div class="card-body">
                             <router-link to="/createsection">
-                                <button class="btn btn-primary">+</button>
+                                <button class="btn btn-primary d-block mx-auto" style="width: 150px;">+</button>
+
                             </router-link>
                         </div>
                     </div>
 
-                    <div class="card">
+                    <div class="card bg-dark text-white">
                         <div class="card-header">Modify Section</div>
                         <div class="card-body">
                             <router-link v-for="(item, index) in sections" :key="index" :to="{ name: 'modifysection', query: { sectionId: item.section_id, sectionName: item.section_name}}">
-                                <div class="card">
+                                <div class="card bg-dark text-white">
                                     {{item.section_name}}
                                 </div>
                             </router-link>
@@ -33,11 +34,11 @@ export default {
         </div>
 
         <div class="col-md-6">
-            <div class="card">
+            <div class="card bg-dark text-white">
                 <div class="card-header">Approve Requests</div>
                 
                 <div class="card-body">
-                    <div class="card">
+                    <div class="card bg-dark text-white">
                         <div class="card-header">Store Manager Applications</div>
                         <div class="card-body">
                             <div v-for="(item, index) in sm_applications" :key="index" class="d-flex justify-content-between">
@@ -50,7 +51,7 @@ export default {
                         </div>
                     </div>
 
-                    <div class="card">
+                    <div class="card bg-dark text-white">
                         <div class="card-header">Section Approvals</div>
                         <div class="card-body">
                             <div v-for="(item, index) in section_applications" :key="index" class="d-flex justify-content-between">

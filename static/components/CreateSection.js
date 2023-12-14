@@ -1,45 +1,37 @@
 export default {
     template: `
 
-
-    <div>
-
-    <div>
-        Create Section
-    </div>
-
-    <form @submit.prevent="submitForm">
-    <div>
-        <div class="horiz"> 
-            <div>
-                Title:
-            </div>
-            <div>
-                <input type="text" name="title" id="title" v-model="sec_name" />
-            </div>
+    <div class="container mt-5">
+    <div class="card bg-dark text-white">
+        <div class="card-header">
+            Create Section
         </div>
-        <div class="horiz"> 
-            <div>
-                Description:
-            </div>
-            <div>
-                <input type="text" name="desc" id="desc"  v-model="section_desc" />
-            </div>
-        </div>
+        <form @submit.prevent="submitForm">
+            <div class="card-body centerer">
 
+                <div class="form-group row limit_row_width">
+                    <label for="title" class="col-sm-2 col-form-label">Title:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="title" v-model="sec_name" />
+                    </div>
+                </div>
 
+                <div class="form-group row limit_row_width">
+                    <label for="desc" class="col-sm-2 col-form-label">Description:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="desc" v-model="section_desc" />
+                    </div>
+                </div>
+
+                <div class="form-group row limit_row_width">
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-primary">Create Section</button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
     </div>
-
-
-    <div > 
-
-        <div>
-            <button type="submit">Create Section</button>
-        </div>    
-
-    </div>    
-    </form>
-
 </div>
 
     `,

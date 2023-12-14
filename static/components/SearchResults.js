@@ -1,25 +1,34 @@
 export default {
     template: `
-
-<div>
-    <div>
-        Search Results:
-    </div>
-    <div>
-
-
-    <router-link v-for="(item, index) in searchData" :key="index" :to="{ name: 'product', query: { itemId: item.product_id }}">
-      <!-- Assuming each item has a unique 'id' property -->
-      <div>
-        <!-- You can customize the content of the link -->
-        <div>{{ item.product_name }}</div>
-        <div>{{ item.product_desc }}</div>
+    <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card bg-dark text-light">
+          <div class="card-body">
+            <h2 class="mb-4">Search Results</h2>
+  
+            <router-link
+              v-for="(item, index) in searchData"
+              :key="index"
+              :to="{ name: 'product', query: { itemId: item.product_id }}"
+              class="text-light text-decoration-none"
+            >
+              <!-- Assuming each item has a unique 'id' property -->
+              <div class="card mb-3 bg-secondary text-dark">
+                <!-- You can customize the content of the link -->
+                <div class="card-body">
+                  <h5 class="card-title">{{ item.product_name }}</h5>
+                  <p class="card-text bottom_sep_2">{{ item.product_desc }}</p>
+                </div>
+              </div>
+            </router-link>
+            
+          </div>
+        </div>
       </div>
-    </router-link>
-
-
     </div>
-</div>
+  </div>
+  
 
     `,
     data() {

@@ -1,51 +1,49 @@
 export default {
     template: `
+    <div class="container mt-5">
+    <div class="card bg-dark text-light p-3 newwww">
+      <h2 class="text-light">View Section</h2>
 
-    <div>
-
-        <div>
-            View Section
-        </div>
-
-        <div>
-            <div class="horiz"> 
-                <div>
-                    Title:
-                </div>
-                <div>
-                    {{sec_name}}
-                </div>
+      <div>
+      <div class=" row">
+        <div class="col-md-6 newnew">
+          <div class="card bg-dark mb-3">
+            <div class="card-body">
+              <div class="horiz">
+                <div class="text-light">Title:</div>
+                <div class="text-light">{{ sec_name }}</div>
+              </div>
+              <div class="horiz">
+                <div class="text-light">Description:</div>
+                <div class="text-light">{{ section_desc }}</div>
+              </div>
             </div>
-            <div class="horiz"> 
-                <div>
-                    Description:
-                </div>
-                <div>
-                    {{section_desc}}
-                </div>
-            </div>
-
-
+          </div>
         </div>
+      </div>
 
-
-        <div class="horiz"> 
-
-            <div>
-                
-                <router-link :to="{ name: 'modifysectionsm', query: { sectionId: sec_id, sectionName: sec_name}}">
-                    <button>Modify Section</button>
+      <div class="row ">
+        <div class="col-md-6 newnew">
+          <div class="card bg-dark mb-3">
+            <div class="card-body horiz">
+              <div>
+                <router-link
+                  :to="{ name: 'modifysectionsm', query: { sectionId: sec_id, sectionName: sec_name }}"
+                >
+                  <button class="btn btn-light">Modify Section</button>
                 </router-link>
-            </div>    
-
-            <div>
-                <button @click="download_csv">Export as CSV</button>
+              </div>
+              <div>
+                <button class="btn btn-light" @click="download_csv">Export as CSV</button>
+              </div>
             </div>
-
-        </div>    
-
+          </div>
+        </div>
+      </div>
+      </div>
     </div>
-
+  </div>
+  
     `,
     data() {
         return {

@@ -1,7 +1,7 @@
 export default {
     template: `
 
-    <div>Hello Home</div>
+    <div>Base Home Page</div>
     
     
     `,

@@ -2,16 +2,22 @@ export default {
   template: `
 
 
-    <nav>
-      <span
-        v-for="(section, index) in responseList"
-        :key="index"
-        :to="{ name: 'section', query: { sectionId: section.section_id, sectionName: section.section_name} }"
-        @click="send_to_sec(section.section_id, section.section_name)">
-        {{ section.section_name }}
-      </span>
-    </nav>
-  
+  <nav class="navbar navbar-dark bg-dark">
+  <div class="container">
+    <router-link
+      v-for="(section, index) in responseList"
+      :key="index"
+      :to="{ name: 'section_proxy', query: { sectionId: section.section_id, sectionName: section.section_name} }"
+      @click="send_to_sec(section.section_id, section.section_name)"
+      class="nav-link"
+    >
+    <button class="btn btn-outline-light m-1">
+      {{ section.section_name }}
+    </button>
+    </router-link>
+  </div>
+</nav>
+
 
 `,
   data() {
