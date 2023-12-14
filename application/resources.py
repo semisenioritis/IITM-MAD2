@@ -15,6 +15,7 @@ from sqlalchemy import or_, func, and_, true
 from datetime import datetime
 import json
 import re
+from .instances import cache
 
 api = Api(prefix='/api')
 
@@ -182,6 +183,7 @@ api.add_resource(NewProd, '/newproduct')
 
 
 class ProductResource(Resource):
+    @cache.cached(timeout=30)
     @marshal_with(product_fields)
     def get(self, product_id):
         try:
@@ -205,6 +207,7 @@ class ProductResource(Resource):
 api.add_resource(ProductResource, '/product/<int:product_id>')
 
 class SectionResource(Resource):
+    @cache.cached(timeout=30)    
     @marshal_with(section_fields)
     def get(self, section_id):
         try:
@@ -909,6 +912,7 @@ api.add_resource(CartPurchaser, '/cartpurchaser/<int:user_id>')
 # ======================================================
 
 class FreshProds(Resource):
+    @cache.cached(timeout=30)    
     @marshal_with(product_fields)
     def get(self):
         try:
@@ -930,8 +934,10 @@ api.add_resource(FreshProds, '/freshprods')
 
 
 class UserPastProds(Resource):
+   
     @auth_required('token')   
     @roles_required('user') 
+    @cache.cached(timeout=30)     
     @marshal_with(product_fields)
     def get(self,user_id):
         try:
@@ -953,6 +959,7 @@ api.add_resource(UserPastProds, '/userpastprods/<int:user_id>')
 
 
 class ProdsOfSection(Resource):
+    @cache.cached(timeout=30)     
     @marshal_with(product_fields)
     def get(self,section_id):
         try:
@@ -978,6 +985,7 @@ class ProdsOfSection(Resource):
 api.add_resource(ProdsOfSection, '/prodsofsection/<int:section_id>')            
 
 class AllSections(Resource):
+    @cache.cached(timeout=30)     
     @marshal_with(section_fields)
     def get(self):
         try:
@@ -997,6 +1005,7 @@ class AllSections(Resource):
 api.add_resource(AllSections, '/allsections')
 
 class AllProds(Resource):
+    @cache.cached(timeout=30)     
     @marshal_with(product_fields)
     def get(self):
         try:
@@ -1018,7 +1027,7 @@ api.add_resource(AllProds, '/allproducts')
 
 class CartResource(Resource):
     @auth_required('token')   
-    @roles_required('user') 
+    @roles_required('user')    
     @marshal_with(cart_fields)
     def get(self, user_id):
         try:
@@ -1210,7 +1219,7 @@ api.add_resource(NotApprovedSections, '/notapprovedsections')
 
 class NotApprovedSM(Resource):
     @auth_required('token')    
-    @roles_required('admin') 
+    @roles_required('admin')     
     @marshal_with(user_fields)
     def get(self):
         try:
