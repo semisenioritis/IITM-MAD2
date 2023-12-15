@@ -44,7 +44,7 @@ def daily_reminder():
                 <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Document</title>
+                <title>Daily Reminder</title>
                 </head>
                 
                 <body>
@@ -68,6 +68,35 @@ def daily_reminder():
                 </tbody>
                 
                 </table>
+                </body>
+                </html>
+                '''
+                send_message(user.email, "Daily Reminder from GrocerKing", content)
+            else:
+                content = f'''
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Daily Reminder</title>
+                </head>
+                
+                <body>
+                Hello {user.username},
+                <br>
+                You dont seem to have bought any products today... 
+                <br>
+                The King would like to cheer you up!
+                <br>
+                Head over to the <a href="http://127.0.0.1:5000/">Grocer King</a> and checkout todays limited time offers!!
+
+                <br>
+
+                
+
+                <br>
+                The King awaits you!
                 </body>
                 </html>
                 '''

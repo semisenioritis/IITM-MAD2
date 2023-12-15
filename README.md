@@ -28,8 +28,10 @@ To run the project:
     E. 
     ~/go/bin/MailHog
 
-3. Open http://127.0.0.1:5000/
+3. Open http://127.0.0.1:5000/ for the websit
 
-4. Done!
+4. Open http://127.0.0.1:8025/# for monitoring the emails 
+
+5. Done!
 
 
