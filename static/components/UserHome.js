@@ -114,7 +114,7 @@ export default {
         },
 
         async getprev() {
-            const past_url = '/api/userpastprods'+localStorage.getItem("id")
+            const past_url = '/api/userpastprods/'+localStorage.getItem("id")
             const res = await fetch(past_url, {
                 method: "GET",
                 headers: {

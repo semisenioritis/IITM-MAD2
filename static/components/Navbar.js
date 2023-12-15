@@ -149,7 +149,7 @@ export default {
 
           // console.log(data.role);}
           this.$router.push({
-            name: 'searches', // Assuming 'searches' is the name of the route
+            name: 'searchproxy', // Assuming 'searches' is the name of the route
             query: {
               data: JSON.stringify(data), // Pass the data as a string
             },

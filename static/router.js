@@ -13,6 +13,7 @@ import SectionPage from './components/SectionPage.js'
 import SectionPageProxy from './components/SectionPageProxy.js'
 
 import SearchResults from './components/SearchResults.js'
+import SearchResultsProxy from './components/SearchResultsProxy.js'
 
 import CreateSection from './components/CreateSection.js'
 import ViewSection from './components/ViewSection.js'
@@ -22,6 +23,7 @@ import ModifyProduct from './components/ModifyProduct.js'
 
 import CreateSectionSm from './components/CreateSectionSm.js'
 import ModifySectionSm from './components/ModifySectionSm.js'
+
 
 
 
@@ -44,6 +46,8 @@ const routes = [
 
 
     { path: '/search', component: SearchResults, name: 'searches' },
+    { path: '/searchproxy', component: SearchResultsProxy, name: 'searchproxy' },
+    
 
     { path: '/createsection', component: CreateSection, name : 'createsection',meta: { requiresAuth: true, roles: ['admin'] }, },
     { path: '/createproduct', component: CreateProduct },

@@ -183,7 +183,7 @@ api.add_resource(NewProd, '/newproduct')
 
 
 class ProductResource(Resource):
-    @cache.cached(timeout=30)
+    @cache.cached(timeout=5)
     @marshal_with(product_fields)
     def get(self, product_id):
         try:
@@ -207,7 +207,7 @@ class ProductResource(Resource):
 api.add_resource(ProductResource, '/product/<int:product_id>')
 
 class SectionResource(Resource):
-    @cache.cached(timeout=30)    
+    @cache.cached(timeout=5)    
     @marshal_with(section_fields)
     def get(self, section_id):
         try:
@@ -912,7 +912,7 @@ api.add_resource(CartPurchaser, '/cartpurchaser/<int:user_id>')
 # ======================================================
 
 class FreshProds(Resource):
-    @cache.cached(timeout=30)    
+    @cache.cached(timeout=5)    
     @marshal_with(product_fields)
     def get(self):
         try:
@@ -937,29 +937,36 @@ class UserPastProds(Resource):
    
     @auth_required('token')   
     @roles_required('user') 
-    @cache.cached(timeout=30)     
+    @cache.cached(timeout=5)     
     @marshal_with(product_fields)
     def get(self,user_id):
         try:
             # Find the product by ID
-            prods = Sold.query.filter_by(user_id=user_id).all() #.sort(key=lambda x: x.product_id, reverse=True)
+            # prods = Sold.query.filter_by(user_id=user_id).all() #.sort(key=lambda x: x.product_id, reverse=True)
+            sold_products = Sold.query.filter_by(user_id=user_id).order_by(Sold.timestamp.desc()).limit(12).all()
             
-            if (not prods):
+            if (not sold_products):
             # if not prods:
                 # If the product is not found, return a 404 response
                 return {"message": f"No products found"}
-            prods = sorted(prods, key=lambda x: x.timestamp, reverse=True)
-            prods = prods[:12]
-            return prods
+            # prods = sorted(prods, key=lambda x: x.timestamp, reverse=True)
+            # prods = prods[:12]
+
+            product_ids = [sold_product.product_id for sold_product in sold_products]
+
+            products_details = Product.query.filter(Product.product_id.in_(product_ids)).all()
+            
+            
+            return products_details
         except Exception as e:
             # Handle the exception and return a custom JSON error response
-            return {"message": f"Some error occured"}
+            return {"message": e}
 
 api.add_resource(UserPastProds, '/userpastprods/<int:user_id>')
 
 
 class ProdsOfSection(Resource):
-    @cache.cached(timeout=30)     
+    @cache.cached(timeout=5)     
     @marshal_with(product_fields)
     def get(self,section_id):
         try:
@@ -985,7 +992,7 @@ class ProdsOfSection(Resource):
 api.add_resource(ProdsOfSection, '/prodsofsection/<int:section_id>')            
 
 class AllSections(Resource):
-    @cache.cached(timeout=30)     
+    @cache.cached(timeout=5)     
     @marshal_with(section_fields)
     def get(self):
         try:
@@ -1005,7 +1012,7 @@ class AllSections(Resource):
 api.add_resource(AllSections, '/allsections')
 
 class AllProds(Resource):
-    @cache.cached(timeout=30)     
+    @cache.cached(timeout=5)     
     @marshal_with(product_fields)
     def get(self):
         try:
