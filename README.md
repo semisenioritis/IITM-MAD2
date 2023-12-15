@@ -18,12 +18,12 @@ To run the project:
     C.
     cd '/mnt/c/My Files/git/Github/iitm mad2/IITM-MAD2'
     source venv1/bin/activate
-    celery -A main:celery_app worker --loglevel INFO --uid=redisuer
+    celery -A main:celery_app beat --loglevel INFO --uid=redisuer
 
     D.
     cd '/mnt/c/My Files/git/Github/iitm mad2/IITM-MAD2'
     source venv1/bin/activate
-    celery -A main:celery_app beat --loglevel INFO --uid=redisuer
+    celery -A main:celery_app worker --loglevel INFO --uid=redisuer
 
     E. 
     ~/go/bin/MailHog

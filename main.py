@@ -47,7 +47,7 @@ def send_email(sender, **kwargs):
 def send_reminder(sender, **kwargs):
 
     sender.add_periodic_task(
-        crontab(hour=7, minute=25),
+        crontab(hour=17, minute=50),
         daily_reminder.s(),
     )
 

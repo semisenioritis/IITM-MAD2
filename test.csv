@@ -1,4 +1,9 @@
 product_id,product_name,section_id,product_desc,curr_stock,in_stock,product_price,per_what,mfg_date,exp_date,creation_date
-1,prod1,1,prod1,14,True,100,kg,1/1/2021,1/1/2022,12/11/2023
-3,sdsa,1,sdsadsads,12,True,11,gk,2023-12-29,2023-12-08,2023-12-02T12:41:33.936Z
-4,at pune,1,i am currently at pune right now,3,True,200,kg,2023-12-01,2023-12-30,2023-12-14T14:30:50.449Z
+1,Fuji Apples,2,Fresh Fuji Apples,200,True,449,kg,2023-10-1,2023-12-1,2023-11-12T:00:00:00.000Z
+5,Nagpur Oranges,2,Well selected oranges from the groves of Nagpur brought straight to your doorstep! Enjoy!,200,True,89,kg,2021-1-1,2021-1-1,2023-11-12T:00:00:00.000Z
+6,New Zealand Kiwis,2,The famous newzealand kiwis (not to be mistaken for the bird or the people either ;) ) kiwis are a wonderfull addition to any meal given their sweet-and-sour taste,39,True,240,kg,2021-1-1,2021-1-1,2023-11-12T:00:00:00.000Z
+7,Kahmir Lychees,2,"Straight from the valleys of Kashmir, these lychees are filled with vitamins and essential nutrients making them a perfect mid-day snack",200,True,230,kg,2021-1-1,2021-1-1,2023-11-12T:00:00:00.000Z
+8,Nashik Grapes,2,"A perfect combo of sweet and sour, light yet filling, a juicy burst of joy in every bite!",80,True,129,kg,2021-1-1,2021-1-1,2023-11-12T:00:00:00.000Z
+9,Alphonso Mangos,2,"A national pride, imported straight from Devgad, behold the true king of fruits!",300,True,899,kg,2021-1-1,2021-1-1,2023-11-12T:00:00:00.000Z
+10,Spanish Peaches,2,Juicy fresh imported spanish peaches,100,True,499,kg,2021-1-1,2021-1-1,2023-11-12T:00:00:00.000Z
+11,Brazilian Avacados,2,"Packing high in fiber and vitamins, a perfect dose for a morning meal",410,True,214,kg,2021-1-1,2021-1-1,2023-11-12T:00:00:00.000Z
