@@ -11,12 +11,12 @@ export default {
           :to="{ name: 'product', query: { itemId: item.product_id }}"
           class="col-md-12 text-light text-decoration-none "
         >
-          <!-- Assuming each item has a unique 'id' property -->
-          <div class="card bg-dark mb-3 border border-white">
+          
+          <div class="card bg-dark mb-3 border border-white ">
             <div class="card-body ">
-              <!-- You can customize the content of the link -->
+              
               <h5 class="card-title text-light">{{ item.product_name }}</h5>
-              <p class="card-text text-light smallify ">{{ item.product_desc }}</p>
+              <p class="card-text text-light smallify limited-height">{{ item.product_desc }}</p>
             </div>
           </div>
         </router-link>
@@ -77,7 +77,7 @@ export default {
             if (dataaa) {
                 try {
                   this.prodsData = dataaa;
-                  // Now this.searchData contains the data passed from the previous page
+                  
                   console.log('Received data:', this.prodsData);
                 } catch (error) {
                   console.error('Error parsing JSON:', error);

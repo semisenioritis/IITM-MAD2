@@ -75,13 +75,13 @@ router.beforeEach((to, from, next) => {
     const requiredRoles = to.meta.roles;
   
     if (requiresAuth && !isAuthenticated) {
-      // Redirect to login if authentication is required and user is not authenticated
+      
       next('/login');
     } else if (requiresAuth && requiredRoles && !userRoles.some(role => requiredRoles.includes(role))) {
-      // Redirect to unauthorized page if user doesn't have required roles
+      
       next('/');
     } else {
-      // Proceed to the requested route
+      
       next();
     }
   });

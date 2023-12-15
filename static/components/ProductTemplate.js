@@ -51,7 +51,7 @@ export default {
     data() {
         return {
             role: localStorage.getItem("user_role"),
-            // Initialize with default values or an empty object
+            
             product_name:"",
             product_description:"",
             product_price:"",
@@ -62,18 +62,16 @@ export default {
             product_image:"",
             prod_count: "",
 
-            // Add other properties as needed
           
         };
       },
       created() {
-        // Access the route parameters
+        
         const routeParams = this.$route.query;
     
-        // Check if the required parameters are present
+        
         if (routeParams.itemId) {
-          // You can make an API call here to fetch product details based on the itemId
-          // Replace this with your actual API call or data retrieval logic
+
           this.fetchProductDetails(routeParams.itemId);
         } else {
           console.error('Missing itemId parameter');
@@ -81,10 +79,6 @@ export default {
       },
       methods: {
         async fetchProductDetails(itemId) {
-          // Make an API call or retrieve product details based on the itemId
-          // Replace this with your actual API call or data retrieval logic
-          // Update the 'product' data property with the fetched product details
-          // For example:
 
         console.log(itemId)
 

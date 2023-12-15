@@ -119,11 +119,11 @@ export default {
         },
 
         async submitForm() {
-          // Filter selected items based on checkbox status
+          
           const sections = this.responseList.filter((item, index) => this.sections[index]);
           const sections_done = sections.map(item => item.section_id);
           this.sections_done = sections_done;
-          // Do something with the selected items (e.g., submit to the server)
+          
           console.log('Selected Items:', sections);
 
           const search_obj = {

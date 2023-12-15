@@ -79,3 +79,11 @@ body{
 .newnew{
     margin: auto;
 }
+
+.limited-height {
+    max-height: 8vw;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+  }

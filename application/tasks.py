@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from dateutil import parser
 
 from .mail_service import send_message
-# from jinja2 import Template
+
 
 
 @shared_task(ignore_result=False)

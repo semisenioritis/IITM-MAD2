@@ -64,15 +64,17 @@ with app.app_context():
     # ====================================================================================
     
     
-    section1 = Section(section_name="Default", section_desc="The Default Section", approval_stat=True)
-    section2 = Section(section_name="section1", section_desc="section1", approval_stat=True)
-    section3 = Section(section_name="section2", section_desc="section2", approval_stat=True)
+    section1 = Section(section_name="Assorted", section_desc="The Assorted Product Section", approval_stat=True)
+    section2 = Section(section_name="Fruits", section_desc="A variety of fruits imported and local both!", approval_stat=True)
+    section3 = Section(section_name="Vegetable", section_desc="A Juicy selection of organic vegetables!", approval_stat=True)
     db.session.add(section1)
     db.session.add(section2)
     db.session.add(section3)
 
-    prod1 = Product(product_name="prod1", section_id=1, product_desc="prod1", in_stock=True,curr_stock=20, product_price=100, per_what="kg", product_image="prod1", mfg_date="2021-1-1", exp_date="2021-1-1", creation_date="2023-11-12T:00:00:00.000Z")
-    prod2 = Product(product_name="prod2", section_id=2, product_desc="prod2", in_stock=True,curr_stock=40, product_price=100, per_what="ltr", product_image="prod2", mfg_date="2021-1-1", exp_date="2021-1-1", creation_date="2023-11-12T:00:00:00.000Z")
+    prod1 = Product(product_name="Fuji Apples", section_id=2, product_desc="Fresh Fuji Apples", 
+                    in_stock=True,curr_stock=20, product_price=449, per_what="kg", product_image="prod1", mfg_date="2023-10-1", exp_date="2023-12-1", creation_date="2023-11-12T:00:00:00.000Z")
+    prod2 = Product(product_name=" 1kg Bag of Potatoes", section_id=3, product_desc="Localy sourced and well curated potatoes", 
+                    in_stock=True,curr_stock=40, product_price=40, per_what="kg", product_image="prod2", mfg_date="2023-10-1", exp_date="2021-12-1", creation_date="2023-11-12T:00:00:00.000Z")
     db.session.add(prod1)
     db.session.add(prod2)
 

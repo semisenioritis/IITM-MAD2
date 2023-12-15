@@ -83,13 +83,13 @@ class NewSectionSM(Resource):
 
             # if not retrieved_sec:
             if (not retrieved_sec):
-                # If the section is not found, raise an exception
+                
                 raise Exception("Error retrieving the created section")
 
             return retrieved_sec
 
         except Exception as e:
-            # Handle the exception and return a custom JSON error response
+            
             return {"message": f"Some error occured"}
 
 
@@ -115,13 +115,13 @@ class NewSectionA(Resource):
 
             # if not retrieved_sec:
             if (not retrieved_sec) :    
-                # If the section is not found, raise an exception
+                
                 raise Exception("Error retrieving the created section")
 
             return retrieved_sec
 
         except Exception as e:
-            # Handle the exception and return a custom JSON error response
+            
             return {"message": f"Some error occured"}
     
 
@@ -168,13 +168,13 @@ class NewProd(Resource):
 
             if (not retrieved_prod) :
             # if not retrieved_prod:
-                # If the section is not found, raise an exception
+                
                 raise Exception("Error retrieving the created product")
 
             return retrieved_prod
 
         except Exception as e:
-            # Handle the exception and return a custom JSON error response
+            
             return {"message": e}
             
 
@@ -187,19 +187,19 @@ class ProductResource(Resource):
     @marshal_with(product_fields)
     def get(self, product_id):
         try:
-            # Find the product by ID
+            
             product = Product.query.get(product_id)
 
             if (not product):
             # if not product:
-                # If the product is not found, return a 404 response
+                
                 return {"message": f"Product not found"}
 
 
             return product
 
         except Exception as e:
-            # Handle the exception and return a custom JSON error response
+            
             return {"message": f"Some error occured"}
             
             
@@ -211,12 +211,12 @@ class SectionResource(Resource):
     @marshal_with(section_fields)
     def get(self, section_id):
         try:
-            # Find the product by ID
+            
             product = Section.query.get(section_id)
 
             if (not product):
             # if not product:
-                # If the product is not found, return a 404 response
+                
                 return {"message": f"Section not found"}
 
             section_active = getattr(product, 'approval_stat')
@@ -225,7 +225,7 @@ class SectionResource(Resource):
             return product
 
         except Exception as e:
-            # Handle the exception and return a custom JSON error response
+            
             return {"message": f"Some error occured"}
 
 api.add_resource(SectionResource, '/section/<int:section_id>')
@@ -237,14 +237,14 @@ class UpdateProduct(Resource):
     @marshal_with(product_fields)
     def put(self, product_id):
         try:
-            # Find the existing product by ID
+            
             existing_product = Product.query.get(product_id)
 
 
 
             if (not existing_product):
             # if not existing_product:
-                # If the product is not found, return a 404 response
+                
                 return {"message": f"Product not found"}
 
 
@@ -255,7 +255,7 @@ class UpdateProduct(Resource):
                 return {"message": f"Section not activated"}
 
 
-            # Parse and update the attributes
+            
             parser = reqparse.RequestParser()
             parser.add_argument('section_id', type=int)
             parser.add_argument('product_desc', type=str)
@@ -276,22 +276,19 @@ class UpdateProduct(Resource):
                     args['in_stock'] = False
                     args['curr_stock'] = 0
 
-            # Update the existing product attributes
+
             for key, value in args.items():
                 if value is not None:
                     setattr(existing_product, key, value)
 
-
-
-            # Commit the changes to the database
             db.session.commit()
 
-            # Retrieve the updated product
+            
             updated_product = Product.query.get(product_id)
 
             if (not updated_product):
             # if not existing_product:
-                # If the product is not found, return a 404 response
+                
                 return {"message": f"Product unable to create"}            
 
 
@@ -300,7 +297,7 @@ class UpdateProduct(Resource):
             return updated_product
 
         except Exception as e:
-            # Handle the exception and return a custom JSON error response
+            
             return {"message": f"Some error occured"}
 
 api.add_resource(UpdateProduct, '/product_update/<int:product_id>')
@@ -312,12 +309,11 @@ class UpdateSectionA(Resource):
     @marshal_with(section_fields)
     def put(self, section_id):
         try:
-            # Find the existing product by ID
+            
             existing_section = Section.query.get(section_id)
 
             if (not existing_section):
             # if not existing_section:
-                # If the product is not found, return a 404 response
                 return {"message": f"Section not found"}
 
 
@@ -327,7 +323,7 @@ class UpdateSectionA(Resource):
                 return {"message": f"Section not activated"}
             
 
-            # Parse and update the attributes
+            
             parser = reqparse.RequestParser()
 
             parser.add_argument('section_name', type=str)
@@ -336,25 +332,25 @@ class UpdateSectionA(Resource):
 
             args = parser.parse_args()
 
-            # Update the existing product attributes
+            
             for key, value in args.items():
                 if value is not None:
                     setattr(existing_section, key, value)
 
-            # Commit the changes to the database
+            
             db.session.commit()
 
-            # Retrieve the updated product
+            
             updated_section = Section.query.get(section_id)
 
             if (not updated_section):
-                # If the product is not found, return a 404 response
+                
                 return {"message": f"Unable to create Section"}            
 
             return updated_section
 
         except Exception as e:
-            # Handle the exception and return a custom JSON error response
+            
             return {"message": f"Some error occured"}
 
 api.add_resource(UpdateSectionA, '/section_update_a/<int:section_id>')
@@ -366,42 +362,42 @@ class ValidateCreateSectionA(Resource):
     @marshal_with(section_fields)
     def put(self, section_id):
         try:
-            # Find the existing product by ID
+            
             existing_section = Section.query.get(section_id)
 
 
             if (not existing_section):
             # if not existing_section:
-                # If the product is not found, return a 404 response
+
                 return {"message": f"Section not found"}
 
-            # Parse and update the attributes
+            
             parser = reqparse.RequestParser()
 
 
             args = parser.parse_args()
             args['approval_stat'] = True
 
-            # Update the existing product attributes
+            
             for key, value in args.items():
                 if value is not None:
                     setattr(existing_section, key, value)
 
-            # Commit the changes to the database
+            
             db.session.commit()
 
-            # Retrieve the updated product
+            
             updated_section = Section.query.get(section_id)
 
 
             if (not updated_section):
-                # If the product is not found, return a 404 response
+
                 return {"message": f"Unable to update Section"}
             
             return updated_section
 
         except Exception as e:
-            # Handle the exception and return a custom JSON error response
+
             return {"message": f"Some error occured"}
 api.add_resource(ValidateCreateSectionA, '/validate_section_update_a/<int:section_id>')
 
@@ -411,12 +407,12 @@ class UpdateSectionSM(Resource):
     @marshal_with(section_fields)
     def put(self, section_id):
         try:
-            # Find the existing product by ID
+            
             existing_section = Section.query.get(section_id)
 
             if (not existing_section):
             # if not existing_section:
-                # If the product is not found, return a 404 response
+                
                 return {"message": f"Section not found"}
 
 
@@ -425,7 +421,7 @@ class UpdateSectionSM(Resource):
                 return {"message": f"Section not activated"}
             
 
-            # Parse and update the attributes
+            
             parser = reqparse.RequestParser()
 
             parser.add_argument('section_name', type=str)
@@ -434,25 +430,25 @@ class UpdateSectionSM(Resource):
             args = parser.parse_args()
             args['approval_stat'] = False
 
-            # Update the existing product attributes
+
             for key, value in args.items():
                 if value is not None:
                     setattr(existing_section, key, value)
 
-            # Commit the changes to the database
+
             db.session.commit()
 
-            # Retrieve the updated product
+            
             updated_section = Section.query.get(section_id)
 
             if (not updated_section):
-                # If the product is not found, return a 404 response
+                
                 return {"message": f"Unable to update Section"}
 
             return updated_section
 
         except Exception as e:
-            # Handle the exception and return a custom JSON error response
+            
             return {"message": f"Some error occured"}
 
 api.add_resource(UpdateSectionSM, '/section_update_sm/<int:section_id>')
@@ -466,12 +462,12 @@ class DeleteProduct(Resource):
     # @marshal_with(cart_fields)
     def delete(self, product_id):
         try:
-            # Find the existing product by ID
+            
             existing_product = Product.query.get(product_id)
 
             if (not existing_product):
             # if not existing_product:
-                # If the product is not found, return a 404 response
+
                 return {"message": f"Product not found"}
 
 
@@ -481,15 +477,15 @@ class DeleteProduct(Resource):
                 for row in carts_of_this_prod:
                     db.session.delete(row)
 
-            # Delete the product from the database
+
             db.session.delete(existing_product)
             db.session.commit()
 
-            # return carts_of_this_prod
+
             return {"message": f"Product with ID {product_id} deleted successfully"}
 
         except Exception as e:
-            # Handle the exception and return a custom JSON error response
+     
             return {"message": f"Some error occured"}
 
 api.add_resource(DeleteProduct, '/deleteprod/<int:product_id>')
@@ -502,19 +498,19 @@ class DeleteSection(Resource):
     # @marshal_with(section_fields)
     def delete(self, section_id):
         try:
-            # Find the existing product by ID
+            
             existing_section = Section.query.get(section_id)
                 
             if (not existing_section):
             # if not existing_section:
-                # If the product is not found, return a 404 response
+                
                 return {"message": f"Section not found"}
 
             prods_of_this_section = Product.query.filter_by(section_id=section_id).all()
 
             if (not prods_of_this_section):
             # if not existing_section:
-                # If the product is not found, return a 404 response
+                
                 pass
             else:
                 col_to_change='section_id'
@@ -523,14 +519,14 @@ class DeleteSection(Resource):
 
             
 
-            # Delete the product from the database
+            
             db.session.delete(existing_section)
             db.session.commit()
 
             return {"message": f"Section with ID {section_id} deleted successfully"}
 
         except Exception as e:
-            # Handle the exception and return a custom JSON error response
+            
             return {"message": f"Some error occured"}
 
 api.add_resource(DeleteSection, '/deletesec/<int:section_id>')
@@ -543,41 +539,41 @@ class ValidateUpdateSectionA(Resource):
     @marshal_with(section_fields)
     def put(self, section_id):
         try:
-            # Find the existing product by ID
+            
             existing_section = Section.query.get(section_id)
 
             if (not existing_section):
             # if not existing_section:
-                # If the product is not found, return a 404 response
+                
                 return {"message": f"Section not found"}
 
-            # Parse and update the attributes
+            
             parser = reqparse.RequestParser()
 
 
             args = parser.parse_args()
             args['approval_stat'] = True
 
-            # Update the existing product attributes
+            
             for key, value in args.items():
                 if value is not None:
                     setattr(existing_section, key, value)
 
-            # Commit the changes to the database
+            
             db.session.commit()
 
-            # Retrieve the updated product
+            
             updated_section = Section.query.get(section_id)
 
             if (not updated_section):
             # if not existing_section:
-                # If the product is not found, return a 404 response
+                
                 return {"message": f"Updated Section not found"}
 
             return updated_section
 
         except Exception as e:
-            # Handle the exception and return a custom JSON error response
+            
             return {"message": f"Some error occured"}
 
 api.add_resource(ValidateUpdateSectionA, '/validate_section_update_a/<int:section_id>')
@@ -622,7 +618,7 @@ class NewCartResource(Resource):
             return {"message": f"Added to Cart successfully"}
 
         except Exception as e:
-            # Handle the exception and return a custom JSON error response   
+            
             return {"message": f"Some error occured"}
 
 
@@ -634,15 +630,15 @@ class CartAddResource(Resource):
     @marshal_with(cart_fields)
     def put(self,cart_id):
         try:
-            # Find the existing product by ID
+            
             existing_cart = Cart.query.get(cart_id)
 
             if (not existing_cart):
             # if not existing_cart:
-                # If the product is not found, return a 404 response
+                
                 return {"message": f"Cart not found"}
 
-            # Find the specific column to increment (e.g., 'curr_stock')
+            
             column_to_increment = 'prod_count'
             
             print(cart_id)
@@ -652,12 +648,12 @@ class CartAddResource(Resource):
 
             if (not this_prod):
             # if not existing_cart:
-                # If the product is not found, return a 404 response
+                
                 return {"message": f"Product not found"}
 
             curr_stock= getattr(this_prod, 'curr_stock')
 
-            # Increment the specific column by one
+            
             current_value = getattr(existing_cart, column_to_increment)
 
             if current_value >= curr_stock:
@@ -670,13 +666,13 @@ class CartAddResource(Resource):
 
             setattr(existing_cart, column_to_increment, current_value + 1)
 
-            # Commit the changes to the database
+            
             db.session.commit()
             new_existing_cart = Cart.query.get(cart_id)
 
             if (not new_existing_cart):
             # if not existing_cart:
-                # If the product is not found, return a 404 response
+                
                 return {"message": f"Cart not found or unable to create"}
 
             return  new_existing_cart 
@@ -685,7 +681,7 @@ class CartAddResource(Resource):
 
 
         except Exception as e:
-            # Handle the exception and return a custom JSON error response
+            
             return {"message": f"Some error occured"}
 
 
@@ -697,16 +693,16 @@ class CartRemResource(Resource):
     @marshal_with(cart_fields)
     def put(self,cart_id):
         try:
-            # Find the existing product by ID
+            
             existing_cart = Cart.query.get(cart_id)
 
 
             if (not existing_cart):
             # if not existing_cart:
-                # If the product is not found, return a 404 response
+                
                 return {"message": f"Cart not found"}
 
-            # Find the specific column to increment (e.g., 'curr_stock')
+            
             column_to_increment = 'prod_count'
 
             respective_prod = getattr(existing_cart, 'product_id')
@@ -715,12 +711,12 @@ class CartRemResource(Resource):
 
             if (not this_prod):
             # if not existing_cart:
-                # If the product is not found, return a 404 response
+                
                 return {"message": f"Product not found"}
 
             curr_stock= getattr(this_prod, 'curr_stock')
 
-            # Increment the specific column by one
+            
             current_value = getattr(existing_cart, column_to_increment)
 
             if current_value > curr_stock:
@@ -739,13 +735,13 @@ class CartRemResource(Resource):
 
             setattr(existing_cart, column_to_increment, current_value - 1)
 
-            # Commit the changes to the database
+            
             db.session.commit()
             new_existing_cart = Cart.query.get(cart_id)
 
             if (not new_existing_cart):
             # if not existing_cart:
-                # If the product is not found, return a 404 response
+                
                 return {"message": f"Cart not found or unable to create"}
 
             return  new_existing_cart 
@@ -753,7 +749,7 @@ class CartRemResource(Resource):
 
 
         except Exception as e:
-            # Handle the exception and return a custom JSON error response
+            
             return {"message": f"Some error occured"}
 
 
@@ -767,22 +763,22 @@ class DeleteCart(Resource):
     @marshal_with(only_message_fields)    
     def delete(self, cart_id):
         try:
-            # Find the existing product by ID
+            
             existing_cart = Cart.query.get(cart_id)
 
             if (not existing_cart):
             # if not existing_cart:
-                # If the product is not found, return a 404 response
+                
                 return {"message": f"Cart not found or doesnt exist."}
 
-            # Delete the product from the database
+            
             db.session.delete(existing_cart)
             db.session.commit()
 
             return {"message": f"Cart with ID {cart_id} deleted successfully"}
 
         except Exception as e:
-            # Handle the exception and return a custom JSON error response
+            
             return {"message": f"Some error occured"}
 
 api.add_resource(DeleteCart, '/deletecart/<int:cart_id>')
@@ -793,13 +789,13 @@ class CartVerificationResource(Resource):
     @marshal_with(only_message_fields)    
     def post(self, user_id):
         try:
-            # Find the product by ID
+            
             cart = Cart.query.filter_by(user_id=user_id).all()
 
 
             if (not cart):
             # if not cart:
-                # If the product is not found, return a 404 response
+                
                 return {"message": f"Cart not found or user has no cart items"}
 
             for row in cart:
@@ -809,11 +805,11 @@ class CartVerificationResource(Resource):
 
                 if (not prod):                
                 # if not prod:
-                    # If the product is not found, return a 404 response
+                    
                     db.session.delete(row)
                     db.session.commit()
                     break                    
-                    # abort(404, message="Product not found")
+                    
                 else:
                     if getattr(prod, 'in_stock') == False:
                         db.session.delete(row)
@@ -835,7 +831,7 @@ class CartVerificationResource(Resource):
             return {"message": f"Verification Complete"}
 
         except Exception as e:
-            # Handle the exception and return a custom JSON error response
+            
             return {"message": f"Some error occured"}
 
 api.add_resource(CartVerificationResource, '/cartverification/<int:user_id>')            
@@ -848,12 +844,12 @@ class CartPurchaser(Resource):
     # @marshal_with(cart_fields)
     def post(self, user_id):
         try:
-            # Delete the user's cart items
+            
             delete_rows = Cart.query.filter_by(user_id=user_id)
             
             if (not delete_rows):
             # if delete_rows.count() == 0:
-                # If no rows were deleted, the user might not have items in the cart
+                
                 return {"message": "No items found in the user's cart"}
             
             for row in delete_rows:
@@ -898,13 +894,13 @@ class CartPurchaser(Resource):
 
 
 
-            # Commit the changes to the database
+            
             db.session.commit()
 
             return {"message": f"Purchase successful"}
 
         except Exception as e:
-            # Handle the exception and return a custom JSON error response
+            
             return {"message": f"Some error occured"}
 
 api.add_resource(CartPurchaser, '/cartpurchaser/<int:user_id>')                
@@ -916,18 +912,18 @@ class FreshProds(Resource):
     @marshal_with(product_fields)
     def get(self):
         try:
-            # Find the product by ID
+            
             prods = Product.query.filter_by(in_stock=True).all() #.sort(key=lambda x: x.product_id, reverse=True)
             
             if (not prods):            
             # if not prods:
-                # If the product is not found, return a 404 response
+                
                 return {"message": f"No products found"}
             prods = sorted(prods, key=lambda x: x.product_price, reverse=True)
             prods = prods[:12]
             return prods
         except Exception as e:
-            # Handle the exception and return a custom JSON error response
+            
             return {"message": f"Some error occured"}
 
 api.add_resource(FreshProds, '/freshprods')
@@ -941,13 +937,13 @@ class UserPastProds(Resource):
     @marshal_with(product_fields)
     def get(self,user_id):
         try:
-            # Find the product by ID
+            
             # prods = Sold.query.filter_by(user_id=user_id).all() #.sort(key=lambda x: x.product_id, reverse=True)
             sold_products = Sold.query.filter_by(user_id=user_id).order_by(Sold.timestamp.desc()).limit(12).all()
             
             if (not sold_products):
             # if not prods:
-                # If the product is not found, return a 404 response
+                
                 return {"message": f"No products found"}
             # prods = sorted(prods, key=lambda x: x.timestamp, reverse=True)
             # prods = prods[:12]
@@ -959,7 +955,7 @@ class UserPastProds(Resource):
             
             return products_details
         except Exception as e:
-            # Handle the exception and return a custom JSON error response
+            
             return {"message": e}
 
 api.add_resource(UserPastProds, '/userpastprods/<int:user_id>')
@@ -976,17 +972,17 @@ class ProdsOfSection(Resource):
             if (not sect):
                 return {"message": f"No section found"}
 
-            # Find the product by ID
+            
             prods = Product.query.filter_by(section_id=section_id).all() 
             
             if (not prods):
             # if not prods:
-                # If the product is not found, return a 404 response
+                
                 return {"message": f"No products found"}
 
             return prods
         except Exception as e:
-            # Handle the exception and return a custom JSON error response
+            
             return {"message": f"Some error occured"}
 
 api.add_resource(ProdsOfSection, '/prodsofsection/<int:section_id>')            
@@ -996,17 +992,17 @@ class AllSections(Resource):
     @marshal_with(section_fields)
     def get(self):
         try:
-            # Find the product by ID
+            
             sections = Section.query.filter_by(approval_stat=True).all() 
 
             if (not sections):            
             # if not sections:
-                # If the product is not found, return a 404 response
+                
                 return {"message": f"No sections found"}
 
             return sections
         except Exception as e:
-            # Handle the exception and return a custom JSON error response
+            
             return {"message": f"Some error occured"}
 
 api.add_resource(AllSections, '/allsections')
@@ -1016,17 +1012,17 @@ class AllProds(Resource):
     @marshal_with(product_fields)
     def get(self):
         try:
-            # Find the product by ID
+            
             prods = Product.query.all() 
 
             if (not prods):            
             # if not sections:
-                # If the product is not found, return a 404 response
+                
                 return {"message": f"No prods found"}
 
             return prods
         except Exception as e:
-            # Handle the exception and return a custom JSON error response
+            
             return {"message": f"Some error occured"}
 
 api.add_resource(AllProds, '/allproducts')
@@ -1038,7 +1034,7 @@ class CartResource(Resource):
     @marshal_with(cart_fields)
     def get(self, user_id):
         try:
-            # Find the product by ID
+            
             # cart = Cart.query.filter_by(user_id=user_id).all()
             cart = (
                 Cart.query
@@ -1055,7 +1051,7 @@ class CartResource(Resource):
                 .all()
             )
             if (not cart):
-                # If the product is not found, return a 404 response
+                
                 return {"message": f"Cart not found"}
 
 
@@ -1063,7 +1059,7 @@ class CartResource(Resource):
             return cart
 
         except Exception as e:
-            # Handle the exception and return a custom JSON error response
+            
             return {"message": f"Some error occured"}
 
 api.add_resource(CartResource, '/cart/<int:user_id>')
@@ -1080,15 +1076,15 @@ class IsThisBought(Resource):
             parser.add_argument('product_id', type=int, help='Current product id', required=True)
             args = parser.parse_args()
 
-            # Access the parsed data
+            
             user_id = args['user_id']       
             product_id = args['product_id']       
 
-            # Find the product by ID
+            
             product_found = Cart.query.filter_by(product_id=product_id,user_id=user_id).all()
 
             if (not product_found):
-                # If the product is not found, return a 404 response
+                
                 return {
                     "message": False
                     }
@@ -1099,7 +1095,7 @@ class IsThisBought(Resource):
                     }
 
         except Exception as e:
-            # Handle the exception and return a custom JSON error response
+            
             return {"message": f"Some error occured"}
 
 api.add_resource(IsThisBought, '/isthisbought')       
@@ -1149,7 +1145,7 @@ class SearchProductsMain(Resource):
         if sections_list == []:
             condition1 = true()
         else:
-            # Get the foreign key values from the related table
+            
             section_ids = [section.section_id for section in Section.query.filter(Section.section_id.in_(sections_list)).all()]
             condition1 = Product.section_id.in_(section_ids)
 
@@ -1211,7 +1207,7 @@ class NotApprovedSections(Resource):
 
 
             if (not not_approved_sections):
-                # If the product is not found, return a 404 response
+                
                 return {"message": f"All sections approved"}
 
 
@@ -1219,7 +1215,7 @@ class NotApprovedSections(Resource):
             return not_approved_sections
 
         except Exception as e:
-            # Handle the exception and return a custom JSON error response
+            
             return {"message": f"Some error occured"}   
 
 api.add_resource(NotApprovedSections, '/notapprovedsections')                   
@@ -1236,7 +1232,7 @@ class NotApprovedSM(Resource):
 
 
             if (not not_approved_sm):
-                # If the product is not found, return a 404 response
+                
                 return {"message": f"All SM approved"}
 
 
@@ -1244,7 +1240,7 @@ class NotApprovedSM(Resource):
             return not_approved_sm
 
         except Exception as e:
-            # Handle the exception and return a custom JSON error response
+            
             return {"message": f"Some error occured"}
 api.add_resource(NotApprovedSM, '/notapprovedsm')
 
@@ -1259,7 +1255,7 @@ class DelSM(Resource):
 
             if (not delete_sm):
             # if delete_rows.count() == 0:
-                # If no rows were deleted, the user might not have items in the cart
+                
                 return {"message": "No users found in the db"}
 
             db.session.delete(delete_sm)
@@ -1267,7 +1263,7 @@ class DelSM(Resource):
             return {"message": "SM deleted successfully"}
                         
         except Exception as e:
-            # Handle the exception and return a custom JSON error response
+            
             return {"message": f"Some error occured"}
 
 api.add_resource(DelSM, '/delsm/<int:user_id>')
