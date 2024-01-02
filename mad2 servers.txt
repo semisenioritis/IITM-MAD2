@@ -1,0 +1,76 @@
+cd '/mnt/c/My Files/git/Github/iitm mad2/IITM-MAD2'
+
+
+source venv1/bin/activate
+
+
+python main.py
+
+=====================
+
+redis-server
+
+=====================
+
+cd '/mnt/c/My Files/git/Github/iitm mad2/IITM-MAD2'
+
+
+source venv1/bin/activate
+
+
+celery -A main:celery_app worker --loglevel INFO --uid=redisuer
+
+=====================
+
+cd '/mnt/c/My Files/git/Github/iitm mad2/IITM-MAD2'
+
+
+source venv1/bin/activate
+
+
+celery -A main:celery_app beat --loglevel INFO --uid=redisuer
+
+=====================
+
+~/go/bin/MailHog
+
+=====================
+
+
+
+
+-
+-
+-
+-
+-
+-
+-
+
+cd  '/mnt/f/iitm/IITM_MAD_2_Submission/IITM-MAD2'
+
+cd '/mnt/c/Users/ATHARVA/Downloads/testtest/IITM-MAD2'
+
+virtualenv -p python3 venv1
+
+pip install -r req.txt
+
+
+
+
+mailhog then worker then beat
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+backend validation
